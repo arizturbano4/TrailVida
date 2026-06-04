@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comunidad TrailVida — Únete al Movimiento Outdoor</title>
+<meta name="description" content="Únete a más de 84.000 senderistas, trail runners y ciclistas de montaña en España. Comparte experiencias, organiza rutas y conecta con tu tribu outdoor.">
+<meta property="og:title" content="Comunidad TrailVida — 84.000 apasionados del outdoor">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B4332;--verde-medio:#2D6A4F;--verde-claro:#52B788;
+  --naranja:#E85D04;--naranja-claro:#F48C06;
+  --oscuro:#0D1117;--oscuro-medio:#161B22;
+  --claro:#F8F9FA;--blanco:#ffffff;
+  --texto:#E8F5E9;--gris:#6B7280;--gris-borde:rgba(255,255,255,0.1);
+  --font-t:'Montserrat',sans-serif;--font-b:'Inter',sans-serif;
+  --trans:300ms cubic-bezier(.4,0,.2,1);--radio:12px;--radio-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--oscuro);color:var(--texto);line-height:1.6;overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+.cursor-dot{width:8px;height:8px;background:var(--naranja);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+body.ch .cursor-dot{width:12px;height:12px;background:var(--naranja-claro)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+.navbar.scrolled{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--gris-borde);padding:1rem 2rem}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--font-t);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;color:#fff}
+.nav-logo span{color:var(--naranja)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(232,245,233,.75);position:relative;transition:color var(--trans)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--naranja);transition:width var(--trans)}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--naranja);color:#fff!important;padding:.6rem 1.4rem;border-radius:50px;font-weight:600;font-size:.875rem;transition:transform var(--trans),box-shadow var(--trans)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,4,.4)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;display:block}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{display:none;position:fixed;inset:0;background:rgba(13,17,23,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-family:var(--font-t);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;text-transform:uppercase;transition:color var(--trans)}
+.nav-mobile a:hover{color:var(--naranja)}
+
+/* HERO COMUNIDAD */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;text-align:center}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=1800&q=70') center/cover;transform:scale(1.08)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,17,23,.6) 0%,rgba(13,17,23,.4) 40%,rgba(13,17,23,.85) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 1.5rem;max-width:860px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(232,93,4,.15);border:1px solid rgba(232,93,4,.3);border-radius:50px;padding:.4rem 1rem;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--naranja-claro);font-weight:600;margin-bottom:1.5rem;animation:fadeInDown .8s ease both}
+.hero-eyebrow::before{content:'';width:6px;height:6px;background:var(--naranja);border-radius:50%;animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.hero h1{font-family:var(--font-t);font-size:clamp(3rem,8vw,6.5rem);font-weight:900;line-height:1;letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:1.25rem;animation:fadeInUp .8s ease .2s both}
+.hero h1 em{font-style:normal;color:var(--naranja);display:block}
+.hero p{color:rgba(232,245,233,.75);font-size:clamp(1rem,2vw,1.2rem);line-height:1.75;max-width:580px;margin:0 auto 2.5rem;animation:fadeInUp .8s ease .4s both}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInUp .8s ease .6s both}
+.btn-primary{background:var(--naranja);color:#fff;padding:.9rem 2.2rem;border-radius:50px;font-family:var(--font-t);font-weight:700;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;transition:all var(--trans);border:2px solid var(--naranja);display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(232,93,4,.4);background:var(--naranja-claro);border-color:var(--naranja-claro)}
+.btn-secondary{background:transparent;color:#fff;padding:.9rem 2.2rem;border-radius:50px;font-family:var(--font-t);font-weight:600;font-size:.88rem;letter-spacing:.05em;text-transform:uppercase;border:2px solid rgba(255,255,255,.3);transition:all var(--trans);display:inline-flex;align-items:center;gap:.5rem}
+.btn-secondary:hover{border-color:#fff;background:rgba(255,255,255,.08);transform:translateY(-3px)}
+
+/* CONTADOR MIEMBROS */
+.counter-strip{background:linear-gradient(135deg,var(--verde) 0%,var(--verde-medio) 50%,var(--naranja) 150%);padding:3rem 2rem;position:relative;overflow:hidden}
+.counter-strip::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.05);top:-200px;left:-100px}
+.counter-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.counter-main{display:flex;align-items:baseline;gap:.5rem}
+.counter-big{font-family:var(--font-t);font-size:clamp(3.5rem,7vw,6rem);font-weight:900;color:#fff;line-height:1;letter-spacing:-.03em}
+.counter-big-suffix{font-family:var(--font-t);font-size:clamp(1.5rem,3vw,2.5rem);font-weight:900;color:rgba(255,255,255,.6)}
+.counter-desc h2{font-family:var(--font-t);font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:800;color:#fff;letter-spacing:-.01em;margin-bottom:.3rem}
+.counter-desc p{color:rgba(255,255,255,.65);font-size:.9rem;max-width:380px}
+.counter-mini-stats{display:flex;gap:2.5rem;flex-wrap:wrap}
+.mini-s{text-align:center}
+.mini-s strong{font-family:var(--font-t);font-size:1.6rem;font-weight:800;color:#fff;display:block;line-height:1}
+.mini-s span{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+
+/* SECCIÓN ESTILO COMÚN */
+.section{padding:5.5rem 2rem}
+.container{max-width:1240px;margin:0 auto}
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--naranja);display:block;margin-bottom:.5rem}
+.section-title{font-family:var(--font-t);font-size:clamp(2rem,4vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-.02em;margin-bottom:1rem}
+.section-title-light{color:#fff}
+.section-title-dark{color:var(--oscuro)}
+.section-sub{color:rgba(232,245,233,.6);font-size:1rem;line-height:1.8;max-width:540px}
+
+/* TESTIMONIOS */
+.section-testimonios{background:var(--oscuro-medio);border-top:1px solid var(--gris-borde)}
+.testimonios-header{text-align:center;margin-bottom:3.5rem}
+.testimonios-header .section-sub{margin:0 auto}
+.testimonios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.testimonio-card{background:var(--oscuro);border:1px solid var(--gris-borde);border-radius:var(--radio-lg);padding:2rem;position:relative;transition:transform var(--trans),border-color var(--trans),box-shadow var(--trans)}
+.testimonio-card:hover{transform:translateY(-6px);border-color:rgba(232,93,4,.2);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.testimonio-card.featured-t{border-color:rgba(232,93,4,.25);background:linear-gradient(135deg,rgba(27,67,50,.3),var(--oscuro))}
+.quote-icon{width:36px;height:36px;color:var(--naranja);margin-bottom:1.25rem;opacity:.6}
+.testimonio-card p{color:rgba(232,245,233,.72);font-size:.93rem;line-height:1.85;margin-bottom:1.5rem;font-style:italic}
+.testimonio-author{display:flex;align-items:center;gap:.9rem}
+.author-img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(232,93,4,.3)}
+.author-initials{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--naranja));display:flex;align-items:center;justify-content:center;font-family:var(--font-t);font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0}
+.author-info h4{font-weight:600;font-size:.9rem;color:#fff;margin-bottom:.1rem}
+.author-info span{font-size:.75rem;color:rgba(232,245,233,.4)}
+.author-sport{font-size:.7rem;font-weight:600;color:var(--naranja);letter-spacing:.06em;text-transform:uppercase;margin-top:.15rem}
+.testimonios-rating{display:flex;gap:.15rem;margin-bottom:1rem}
+.testimonios-rating span{color:#F8C471;font-size:.9rem}
+
+/* GALERÍA MASONRY */
+.section-galeria{background:var(--oscuro)}
+.galeria-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.masonry{columns:4;column-gap:1rem}
+.masonry-item{break-inside:avoid;margin-bottom:1rem;border-radius:var(--radio);overflow:hidden;position:relative;cursor:pointer}
+.masonry-item img{width:100%;display:block;transition:transform .6s ease}
+.masonry-item:hover img{transform:scale(1.05)}
+.masonry-item-overlay{position:absolute;inset:0;background:rgba(13,17,23,0);transition:background var(--trans);display:flex;align-items:flex-end;padding:1rem}
+.masonry-item:hover .masonry-item-overlay{background:rgba(13,17,23,.55)}
+.masonry-tag{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(232,93,4,.8);padding:.25rem .6rem;border-radius:4px;opacity:0;transition:opacity var(--trans)}
+.masonry-item:hover .masonry-tag{opacity:1}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(13,17,23,.95);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(12px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:var(--radio);box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.lightbox-close{position:absolute;top:1.5rem;right:1.5rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--trans)}
+.lightbox-close:hover{background:var(--naranja);border-color:var(--naranja)}
+.lightbox-close svg{width:20px;height:20px;stroke:#fff;fill:none}
+
+/* ÚNETE AL MOVIMIENTO */
+.section-unirse{background:var(--claro);clip-path:polygon(0 5%,100% 0,100% 95%,0 100%);padding:7rem 2rem;margin:-1px 0}
+.unirse-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.unirse-left .section-title-dark{margin-bottom:1rem}
+.unirse-left p{color:var(--gris);font-size:1rem;line-height:1.8;margin-bottom:2rem}
+.beneficios{display:flex;flex-direction:column;gap:.9rem;margin-bottom:2.5rem}
+.beneficio{display:flex;align-items:flex-start;gap:.9rem}
+.beneficio-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--verde),var(--verde-medio));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.1rem}
+.beneficio-icon svg{width:16px;height:16px;stroke:#fff;fill:none}
+.beneficio-info h4{font-weight:600;font-size:.9rem;color:var(--oscuro);margin-bottom:.15rem}
+.beneficio-info p{font-size:.83rem;color:var(--gris);line-height:1.5}
+.unirse-right{position:relative}
+.app-mockup{background:var(--oscuro);border-radius:28px;padding:2rem;border:8px solid rgba(255,255,255,.12);box-shadow:0 32px 80px rgba(0,0,0,.3);max-width:340px;margin:0 auto}
+.app-mockup-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.app-logo{font-family:var(--font-t);font-size:1rem;font-weight:800;color:#fff}
+.app-logo em{font-style:normal;color:var(--naranja)}
+.app-notif{background:var(--naranja);color:#fff;font-size:.68rem;font-weight:700;padding:.2rem .5rem;border-radius:50px}
+.app-stat-row{display:flex;gap:.75rem;margin-bottom:1rem}
+.app-stat{flex:1;background:rgba(255,255,255,.05);border-radius:var(--radio);padding:.9rem;text-align:center;border:1px solid var(--gris-borde)}
+.app-stat strong{font-family:var(--font-t);font-size:1.3rem;font-weight:800;color:#fff;display:block;line-height:1}
+.app-stat span{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(232,245,233,.4)}
+.app-feed{display:flex;flex-direction:column;gap:.6rem}
+.feed-item{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.03);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.75rem}
+.feed-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0}
+.feed-text{font-size:.78rem;color:rgba(232,245,233,.65);line-height:1.4;flex:1}
+.feed-text strong{color:var(--texto)}
+.feed-time{font-size:.68rem;color:rgba(232,245,233,.3)}
+.app-cta{margin-top:1.25rem;width:100%;background:var(--naranja);color:#fff;border:none;border-radius:50px;padding:.85rem;font-family:var(--font-t);font-weight:700;font-size:.85rem;cursor:pointer;transition:all var(--trans);display:flex;align-items:center;justify-content:center;gap:.5rem}
+.app-cta:hover{background:var(--naranja-claro);transform:translateY(-2px)}
+.app-cta svg{width:18px;height:18px;stroke:currentColor;fill:none}
+.app-badge{position:absolute;top:-1rem;right:1rem;background:var(--naranja);color:#fff;font-family:var(--font-t);font-size:.7rem;font-weight:700;padding:.4rem .9rem;border-radius:50px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 8px 24px rgba(232,93,4,.4)}
+
+/* REDES SOCIALES */
+.section-redes{background:var(--oscuro-medio);padding:5rem 2rem;border-top:1px solid var(--gris-borde)}
+.redes-header{text-align:center;margin-bottom:3rem}
+.redes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;max-width:1240px;margin:0 auto}
+.red-card{border-radius:var(--radio-lg);padding:2rem;text-align:center;border:1px solid var(--gris-borde);transition:all var(--trans);cursor:pointer}
+.red-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.red-card.ig{background:linear-gradient(135deg,rgba(131,58,180,.15),rgba(253,29,29,.1))}
+.red-card.ig:hover{border-color:rgba(253,29,29,.3)}
+.red-card.yt{background:rgba(255,0,0,.07)}
+.red-card.yt:hover{border-color:rgba(255,0,0,.3)}
+.red-card.strava{background:rgba(252,76,2,.07)}
+.red-card.strava:hover{border-color:rgba(252,76,2,.3)}
+.red-card.tiktok{background:rgba(0,0,0,.3);border-color:rgba(255,255,255,.06)}
+.red-card.tiktok:hover{border-color:rgba(255,255,255,.2)}
+.red-icon{width:48px;height:48px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center}
+.red-icon svg{width:48px;height:48px}
+.red-card h3{font-family:var(--font-t);font-weight:700;font-size:1.1rem;color:#fff;margin-bottom:.25rem}
+.red-card p{font-size:.83rem;color:rgba(232,245,233,.5);margin-bottom:1rem}
+.red-handle{font-size:.8rem;font-weight:600;color:var(--naranja);letter-spacing:.04em}
+.red-btn{display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.07);border:1px solid var(--gris-borde);color:rgba(232,245,233,.7);padding:.45rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;margin-top:.75rem;transition:all var(--trans)}
+.red-btn:hover{background:rgba(255,255,255,.12);color:#fff}
+
+/* FORMULARIO UNIRSE */
+.section-form{background:var(--oscuro);padding:5rem 2rem;border-top:1px solid var(--gris-borde)}
+.form-inner{max-width:700px;margin:0 auto;text-align:center}
+.form-inner .section-title-light{margin-bottom:.75rem}
+.form-inner p{color:rgba(232,245,233,.55);margin-bottom:2.5rem}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem}
+.form-group.full{grid-column:span 2}
+.form-group label{font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(232,245,233,.5)}
+.form-group input,.form-group select{background:rgba(255,255,255,.04);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.8rem 1rem;color:var(--texto);font-family:var(--font-b);font-size:.9rem;outline:none;transition:border-color var(--trans)}
+.form-group input:focus,.form-group select:focus{border-color:rgba(232,93,4,.4)}
+.form-group input::placeholder{color:rgba(232,245,233,.25)}
+.form-group select option{background:var(--oscuro-medio);color:var(--texto)}
+.form-submit{width:100%;background:var(--naranja);color:#fff;border:none;border-radius:50px;padding:1rem 2rem;font-family:var(--font-t);font-weight:700;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all var(--trans);display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.5rem}
+.form-submit:hover{background:var(--naranja-claro);transform:translateY(-2px);box-shadow:0 12px 32px rgba(232,93,4,.35)}
+.form-submit svg{width:18px;height:18px;stroke:currentColor;fill:none}
+.form-nota{font-size:.75rem;color:rgba(232,245,233,.3);margin-top:1rem}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}.reveal-d5{transition-delay:.5s}
+
+/* FOOTER */
+footer{background:#080C10;border-top:1px solid var(--gris-borde);padding:3rem 2rem 1.5rem}
+.footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand .nav-logo{margin-bottom:.75rem}
+.footer-brand p{color:rgba(232,245,233,.4);font-size:.85rem;line-height:1.7;max-width:260px;margin-bottom:1rem}
+.footer-social{display:flex;gap:.6rem}
+.s-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;transition:all var(--trans);color:rgba(232,245,233,.4)}
+.s-btn:hover{border-color:var(--naranja);color:var(--naranja);transform:translateY(-2px)}
+.s-btn svg{width:15px;height:15px;fill:currentColor}
+.footer-col h4{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{font-size:.85rem;color:rgba(232,245,233,.4);transition:color var(--trans)}
+.footer-col ul a:hover{color:var(--naranja-claro)}
+.footer-bottom{max-width:1240px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.78rem;color:rgba(232,245,233,.28)}
+.footer-bottom a{color:var(--naranja)}
+
+@media(max-width:1024px){
+  .testimonios-grid{grid-template-columns:1fr 1fr}
+  .masonry{columns:3}
+  .redes-grid{grid-template-columns:1fr 1fr}
+  .unirse-inner{grid-template-columns:1fr;gap:3rem}
+  .app-mockup{max-width:100%}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}.hamburger{display:flex}
+  .testimonios-grid{grid-template-columns:1fr}
+  .masonry{columns:2}
+  .redes-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:span 1}
+  .counter-inner{flex-direction:column;text-align:center}
+  .section-unirse{clip-path:none}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .masonry{columns:1}
+  .redes-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+    Trail<span>Vida</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="rutas.html">Rutas</a></li>
+    <li><a href="deportes.html">Deportes</a></li>
+    <li><a href="guias.html">Guías</a></li>
+    <li><a href="comunidad.html" class="active">Comunidad</a></li>
+    <li><a href="#unirse" class="nav-cta">Únete</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Inicio</a><a href="rutas.html">Rutas</a><a href="deportes.html">Deportes</a><a href="guias.html">Guías</a><a href="comunidad.html">Comunidad</a><a href="#unirse" style="color:var(--naranja)">Únete</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" aria-label="Comunidad TrailVida">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">84.000 aventureros y creciendo</div>
+    <h1>Tu Tribu<br><em>Outdoor</em></h1>
+    <p>Senderistas, trail runners, ciclistas de montaña, escaladores... Todos con una cosa en común: prefieren un atardecer en cima a cualquier otra cosa. Bienvenido a casa.</p>
+    <div class="hero-actions">
+      <a href="#unirse" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Unirme ahora
+      </a>
+      <a href="#galeria" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        Ver galería
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTADOR GRANDE -->
+<div class="counter-strip">
+  <div class="counter-inner">
+    <div>
+      <p style="font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:.5rem">Miembros activos</p>
+      <div class="counter-main">
+        <span class="counter-big" id="bigCounter">0</span>
+        <span class="counter-big-suffix">+</span>
+      </div>
+    </div>
+    <div class="counter-desc">
+      <h2>El mayor movimiento<br>outdoor de España</h2>
+      <p>Cada semana se unen más de 600 personas que prefieren la montaña al sofá. ¿Te falta tú?</p>
+    </div>
+    <div class="counter-mini-stats">
+      <div class="mini-s"><strong>1.240</strong><span>Rutas/mes compartidas</span></div>
+      <div class="mini-s"><strong>320</strong><span>Quedadas organizadas</span></div>
+      <div class="mini-s"><strong>17</strong><span>Comunidades autónomas</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- TESTIMONIOS -->
+<section class="section section-testimonios" aria-labelledby="test-titulo">
+  <div class="container">
+    <div class="testimonios-header">
+      <span class="section-label reveal">Voces de la comunidad</span>
+      <h2 class="section-title section-title-light reveal reveal-d1" id="test-titulo">Ellos ya están aquí.<br>¿Y tú?</h2>
+      <p class="section-sub reveal reveal-d2">Historias reales de personas que encontraron su tribu, su ruta favorita o simplemente una razón más para salir el sábado por la mañana.</p>
+    </div>
+    <div class="testimonios-grid">
+
+      <article class="testimonio-card featured-t reveal">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Llevaba años queriendo hacer la Ruta del Cares y siempre la aplazaba. En TrailVida encontré a tres personas más que vivían cerca y la hicimos juntos. Fue uno de los mejores días de mi vida. Ahora tenemos un grupo de senderismo de los Picos y salimos cada mes.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">MG</div>
+          <div class="author-info">
+            <h4>Marta García</h4>
+            <span>Madrid, 34 años</span>
+            <p class="author-sport">Senderismo · 2 años en la comunidad</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio-card reveal reveal-d1">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Las guías de nutrición me ayudaron a preparar mi primer trail de 30 km. Fui con la estrategia de alimentación bien planificada y terminé sin el bajón energético que siempre tenía. Una herramienta brutal para corredores que se toman en serio el deporte.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">JR</div>
+          <div class="author-info">
+            <h4>Jordi Roca</h4>
+            <span>Barcelona, 28 años</span>
+            <p class="author-sport">Trail Running · 1 año en la comunidad</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio-card reveal reveal-d2">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Empecé con el senderismo por rehabilitación de rodilla y descubrí que me apasionaba. TrailVida me ayudó a encontrar rutas adaptadas a mi nivel y a entender qué equipamiento realmente necesitaba. No me arrepiento de nada.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">AL</div>
+          <div class="author-info">
+            <h4>Ana López</h4>
+            <span>Bilbao, 41 años</span>
+            <p class="author-sport">Senderismo · 3 años en la comunidad</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio-card reveal reveal-d1">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Descubrí el sector de escalada de Riglos gracias a TrailVida. Nadie de mi entorno escalaba pero aquí encontré compañeros de cordada con mi nivel. La primera vez que hice una vía de 6b+ en Mallos se me saltaron las lágrimas.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">PC</div>
+          <div class="author-info">
+            <h4>Pablo Castillo</h4>
+            <span>Zaragoza, 25 años</span>
+            <p class="author-sport">Escalada · 1.5 años en la comunidad</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio-card reveal reveal-d2">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Soy padre de dos niños y creía que el deporte de montaña serio había quedado atrás. Gracias a los filtros de rutas "fácil + familiar" descubrí que podía llevarlos y que ellos disfrutarían. Ahora salen más motivados que yo.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">DM</div>
+          <div class="author-info">
+            <h4>David Martínez</h4>
+            <span>Sevilla, 38 años</span>
+            <p class="author-sport">Senderismo familiar · 8 meses</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimonio-card reveal reveal-d3">
+        <svg class="quote-icon" viewBox="0 0 32 32" fill="currentColor"><path d="M10 8C6.7 8 4 10.7 4 14s2.7 6 6 6c.4 0 .7 0 1-.1C10.3 22.5 8.8 25 6 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8zm16 0c-3.3 0-6 2.7-6 6s2.7 6 6 6c.4 0 .7 0 1-.1C26.3 22.5 24.8 25 22 26h2c4.4 0 8-4.5 8-10 0-4.4-2.7-8-6-8z"/></svg>
+        <div class="testimonios-rating"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p>Me hice del MTB hace dos años y no sabía por dónde empezar. TrailVida me enseñó a leer el terreno, elegir la bici correcta y conectarme con grupos locales en Soria donde hay singletracks absolutamente increíbles que no aparecen en ningún otro sitio.</p>
+        <div class="testimonio-author">
+          <div class="author-initials">LN</div>
+          <div class="author-info">
+            <h4>Laura Núñez</h4>
+            <span>Soria, 31 años</span>
+            <p class="author-sport">Ciclismo MTB · 2 años</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA MASONRY -->
+<section class="section section-galeria" id="galeria" aria-labelledby="galeria-titulo">
+  <div class="container">
+    <div class="galeria-header">
+      <div>
+        <span class="section-label reveal">Compartido por vosotros</span>
+        <h2 class="section-title section-title-light reveal reveal-d1" id="galeria-titulo">La Comunidad en<br>Imágenes</h2>
+      </div>
+      <a href="#unirse" style="display:inline-flex;align-items:center;gap:.4rem;color:var(--naranja);font-weight:600;font-size:.875rem;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid transparent;transition:all var(--trans)" class="reveal" onmouseover="this.style.borderBottomColor='var(--naranja)'" onmouseout="this.style.borderBottomColor='transparent'">
+        Subir foto
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="masonry" id="masonry" role="list"></div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Imagen ampliada">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Cerrar imagen">
+    <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<!-- ÚNETE AL MOVIMIENTO -->
+<section class="section-unirse" id="unirse" aria-labelledby="unirse-titulo">
+  <div class="unirse-inner">
+    <div class="unirse-left">
+      <span class="section-label reveal">Forma parte</span>
+      <h2 class="section-title section-title-dark reveal reveal-d1" id="unirse-titulo">Únete al Movimiento<br>TrailVida</h2>
+      <p class="reveal reveal-d1" style="color:var(--gris);font-size:1rem;line-height:1.8;margin-bottom:2rem">Gratis, sin compromiso. Accede a rutas exclusivas, descuentos en equipamiento y conecta con otros aventureros de tu zona.</p>
+      <div class="beneficios reveal reveal-d2">
+        <div class="beneficio">
+          <div class="beneficio-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg></div>
+          <div class="beneficio-info"><h4>Rutas exclusivas con GPX</h4><p>Descarga tracks verificados por nuestra comunidad para usarlos sin conexión.</p></div>
+        </div>
+        <div class="beneficio">
+          <div class="beneficio-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="beneficio-info"><h4>Grupos locales organizados</h4><p>Encuentra compañeros de aventura en tu ciudad y comunidad autónoma.</p></div>
+        </div>
+        <div class="beneficio">
+          <div class="beneficio-icon"><svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div class="beneficio-info"><h4>Descuentos en equipamiento</h4><p>Acuerdos exclusivos con Decathlon, Salomon, Mammut y más marcas outdoor.</p></div>
+        </div>
+        <div class="beneficio">
+          <div class="beneficio-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 3h18v13H3zM8 21h8M12 16v5"/></svg></div>
+          <div class="beneficio-info"><h4>Guías en primicia</h4><p>Suscriptores acceden a los nuevos artículos 48h antes que el resto.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="unirse-right reveal reveal-d2">
+      <span class="app-badge">App próximamente</span>
+      <div class="app-mockup">
+        <div class="app-mockup-header">
+          <span class="app-logo">Trail<em>Vida</em></span>
+          <span class="app-notif">3 nuevos</span>
+        </div>
+        <div class="app-stat-row">
+          <div class="app-stat"><strong id="appCounter">0</strong><span>Miembros</span></div>
+          <div class="app-stat"><strong>320</strong><span>Quedadas</span></div>
+        </div>
+        <div class="app-feed">
+          <div class="feed-item">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--naranja));flex-shrink:0"></div>
+            <div class="feed-text"><strong>Marta G.</strong> compartió la Ruta del Cares con fotos del amanecer</div>
+            <span class="feed-time">2h</span>
+          </div>
+          <div class="feed-item">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1d4ed8,var(--verde-claro));flex-shrink:0"></div>
+            <div class="feed-text"><strong>Grupo MTB Soria</strong> organiza salida el próximo sábado — 12 apuntados</div>
+            <span class="feed-time">5h</span>
+          </div>
+          <div class="feed-item">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--naranja),#F8C471);flex-shrink:0"></div>
+            <div class="feed-text"><strong>Jordi R.</strong> completó su primer trail de 30 km ★★★★★</div>
+            <span class="feed-time">1d</span>
+          </div>
+        </div>
+        <button class="app-cta" onclick="document.getElementById('formNombre').focus()">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          Unirme a la comunidad
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REDES SOCIALES -->
+<section class="section-redes" aria-labelledby="redes-titulo">
+  <div class="redes-header">
+    <span class="section-label reveal">Síguenos</span>
+    <h2 class="section-title section-title-light reveal reveal-d1" id="redes-titulo">Estamos en todas partes</h2>
+  </div>
+  <div class="redes-grid">
+    <div class="red-card ig reveal">
+      <div class="red-icon">
+        <svg viewBox="0 0 24 24" fill="url(#ig-grad)" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#f09433"/><stop offset="25%" style="stop-color:#e6683c"/><stop offset="50%" style="stop-color:#dc2743"/><stop offset="75%" style="stop-color:#cc2366"/><stop offset="100%" style="stop-color:#bc1888"/></linearGradient></defs>
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+      </div>
+      <h3>Instagram</h3>
+      <p>Fotos diarias de rutas, paisajes y comunidad</p>
+      <span class="red-handle">@trailvida_es</span>
+      <div><a href="#" class="red-btn">Seguir <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="red-card yt reveal reveal-d1">
+      <div class="red-icon">
+        <svg viewBox="0 0 24 24" fill="#FF0000" xmlns="http://www.w3.org/2000/svg">
+          <path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+        </svg>
+      </div>
+      <h3>YouTube</h3>
+      <p>Vlogs de rutas, reviews de material y técnica</p>
+      <span class="red-handle">TrailVida España</span>
+      <div><a href="#" class="red-btn">Suscribirse <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="red-card strava reveal reveal-d2">
+      <div class="red-icon">
+        <svg viewBox="0 0 24 24" fill="#FC4C02" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/>
+        </svg>
+      </div>
+      <h3>Strava</h3>
+      <p>Club oficial con retos mensuales y rankings</p>
+      <span class="red-handle">Club TrailVida</span>
+      <div><a href="#" class="red-btn">Unirse al club <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="red-card tiktok reveal reveal-d3">
+      <div class="red-icon">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.28 6.28 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.37a8.16 8.16 0 004.77 1.52V7.44a4.85 4.85 0 01-1-.75z"/>
+        </svg>
+      </div>
+      <h3>TikTok</h3>
+      <p>Clips cortos de rutas, tips rápidos y comunidad</p>
+      <span class="red-handle">@trailvida</span>
+      <div><a href="#" class="red-btn">Seguir <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO REGISTRO -->
+<section class="section-form" id="form-section">
+  <div class="form-inner reveal">
+    <span class="section-label">Es gratis</span>
+    <h2 class="section-title section-title-light">Crea tu cuenta TrailVida</h2>
+    <p>Únete en 30 segundos. Sin tarjeta. Sin trampa.</p>
+    <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="formNombre">Nombre</label>
+          <input type="text" id="formNombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="formApellido">Apellido</label>
+          <input type="text" id="formApellido" placeholder="Tu apellido" required>
+        </div>
+        <div class="form-group full">
+          <label for="formEmail">Email</label>
+          <input type="email" id="formEmail" placeholder="tu@correo.es" required>
+        </div>
+        <div class="form-group">
+          <label for="formCA">Comunidad Autónoma</label>
+          <select id="formCA">
+            <option value="">Selecciona tu comunidad</option>
+            <option>Andalucía</option><option>Aragón</option><option>Asturias</option>
+            <option>Canarias</option><option>Cantabria</option><option>Castilla-La Mancha</option>
+            <option>Castilla y León</option><option>Cataluña</option><option>Comunitat Valenciana</option>
+            <option>Extremadura</option><option>Galicia</option><option>Islas Baleares</option>
+            <option>La Rioja</option><option>Madrid</option><option>Murcia</option>
+            <option>Navarra</option><option>País Vasco</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="formDeporte">Deporte principal</label>
+          <select id="formDeporte">
+            <option value="">¿Cuál es el tuyo?</option>
+            <option>Senderismo</option><option>Trail Running</option>
+            <option>Ciclismo MTB</option><option>Escalada</option>
+            <option>Kayak / Piragüismo</option><option>Esquí / Snowboard</option>
+            <option>Varios deportes</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="form-submit">
+        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Crear cuenta gratuita
+      </button>
+      <p class="form-nota">Al registrarte aceptas los <a href="#" style="color:var(--naranja)">Términos de uso</a> y la <a href="#" style="color:var(--naranja)">Política de privacidad</a>.</p>
+    </form>
+  </div>
+</section>
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="font-size:1.2rem;margin-bottom:.75rem">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+        Trail<span>Vida</span>
+      </a>
+      <p>Tu guía de referencia para el deporte outdoor en España.</p>
+      <div class="footer-social">
+        <a href="#" class="s-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" class="s-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+        <a href="#" class="s-btn" aria-label="Strava"><svg viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Comunidad</h4><ul><li><a href="#unirse">Unirme</a></li><li><a href="#galeria">Galería</a></li><li><a href="#form-section">Registro</a></li></ul></div>
+    <div class="footer-col"><h4>Explorar</h4><ul><li><a href="rutas.html">Rutas</a></li><li><a href="deportes.html">Deportes</a></li><li><a href="guias.html">Guías</a></li><li><a href="index.html">Inicio</a></li></ul></div>
+    <div class="footer-col"><h4>TrailVida</h4><ul><li><a href="#">Sobre nosotros</a></li><li><a href="#">Colabora</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Contacto</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 TrailVida. Todos los derechos reservados.</p><p><a href="#">Privacidad</a> · <a href="#">Cookies</a></p></div>
+</footer>
+
+<script>
+// Galería masonry data
+const GALERIA = [
+  {img:"https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=75",alt:"Senderistas en el Cares al amanecer",tag:"Senderismo"},
+  {img:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=400&q=75",alt:"Trail runner al atardecer en montaña",tag:"Trail Running"},
+  {img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=75",alt:"Paisaje pirenaico de alta montaña",tag:"Pirineos"},
+  {img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=400&q=75",alt:"Mulhacén nevado en Sierra Nevada",tag:"Sierra Nevada"},
+  {img:"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=400&q=75",alt:"Escalador en pared de roca",tag:"Escalada"},
+  {img:"https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=400&q=75",alt:"Ciclista MTB en bajada técnica",tag:"MTB"},
+  {img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=400&q=75",alt:"Montaña al atardecer con nubes",tag:"Picos de Europa"},
+  {img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=75",alt:"Montserrat al amanecer",tag:"Cataluña"},
+  {img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=400&q=75",alt:"Lago de montaña con reflejo perfecto",tag:"Pirineos"},
+  {img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=75",alt:"Bosque frondoso en sendero verde",tag:"Naturaleza"},
+  {img:"https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=400&q=75",alt:"Kayak en río entre montañas",tag:"Kayak"},
+  {img:"https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=400&q=75",alt:"Desfiladero con pasarelas sobre vacío",tag:"Andalucía"},
+];
+
+const masonry = document.getElementById('masonry');
+masonry.innerHTML = GALERIA.map((item, i) => `
+  <div class="masonry-item reveal" style="transition-delay:${(i%4)*0.08}s" role="listitem">
+    <img src="${item.img}" alt="${item.alt}" loading="lazy" onclick="openLightbox('${item.img}', '${item.alt}')">
+    <div class="masonry-item-overlay">
+      <span class="masonry-tag">${item.tag}</span>
+    </div>
+  </div>
+`).join('');
+
+// Lightbox
+function openLightbox(src, alt) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = src.replace('w=400', 'w=1200');
+  document.getElementById('lightboxImg').alt = alt;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+document.getElementById('lightboxClose').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if(e.target === document.getElementById('lightbox')) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+// Contador animado grande
+function animCounter(el, target, duration) {
+  const start = performance.now();
+  function update(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString('es-ES');
+    if(p < 1) requestAnimationFrame(update);
+    else el.textContent = target.toLocaleString('es-ES');
+  }
+  requestAnimationFrame(update);
+}
+
+const bigCounterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      animCounter(document.getElementById('bigCounter'), 84000, 2200);
+      animCounter(document.getElementById('appCounter'), 84000, 2200);
+      bigCounterObs.disconnect();
+    }
+  });
+}, {threshold: 0.5});
+bigCounterObs.observe(document.querySelector('.counter-strip'));
+
+// Parallax hero
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  if(s < window.innerHeight) document.getElementById('heroBg').style.transform = `scale(1.08) translateY(${s * 0.13}px)`;
+}, {passive: true});
+
+// Reveal
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revObs.unobserve(e.target); }});
+}, {threshold: 0.08});
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+// Navbar
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+// Cursor
+const dot = document.getElementById('cursorDot');
+document.addEventListener('mousemove', e => { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; });
+document.querySelectorAll('a,button,.masonry-item,.red-card,.testimonio-card').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+});
+
+// Hamburger
+const hbg = document.getElementById('hamburger'), nm = document.getElementById('navMobile');
+hbg.addEventListener('click', () => { const o = hbg.classList.toggle('active'); nm.classList.toggle('open', o); hbg.setAttribute('aria-expanded', o); document.body.style.overflow = o ? 'hidden' : ''; });
+nm.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { hbg.classList.remove('active'); nm.classList.remove('open'); document.body.style.overflow = ''; }));
+
+// Form
+function handleRegister(e) {
+  e.preventDefault();
+  const nombre = document.getElementById('formNombre').value;
+  const btn = e.target.querySelector('.form-submit');
+  if(!nombre.trim()) { document.getElementById('formNombre').focus(); return; }
+  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> ¡Bienvenido, ${nombre}!`;
+  btn.style.background = '#2D6A4F';
+  btn.disabled = true;
+}
+
+// Page fade
+document.body.style.opacity = '0'; document.body.style.transition = 'opacity .3s ease';
+window.addEventListener('load', () => { document.body.style.opacity = '1'; });
+document.querySelectorAll('a[href$=".html"]').forEach(l => { l.addEventListener('click', e => { const h = l.getAttribute('href'); if(!h || h.startsWith('#') || h.startsWith('http')) return; e.preventDefault(); document.body.style.opacity = '0'; setTimeout(() => { window.location.href = h; }, 280); }); });
+</script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deportes Outdoor en España — TrailVida</title>
+<meta name="description" content="Senderismo, trail running, ciclismo de montaña, escalada, kayak y esquí. Guías completas de deportes al aire libre en España con equipamiento y mejores zonas.">
+<meta property="og:title" content="Deportes Outdoor en España — TrailVida">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B4332;--verde-medio:#2D6A4F;--verde-claro:#52B788;
+  --naranja:#E85D04;--naranja-claro:#F48C06;
+  --oscuro:#0D1117;--oscuro-medio:#161B22;
+  --claro:#F8F9FA;--blanco:#ffffff;
+  --texto:#E8F5E9;--gris:#6B7280;--gris-borde:rgba(255,255,255,0.1);
+  --font-t:'Montserrat',sans-serif;--font-b:'Inter',sans-serif;
+  --trans:300ms cubic-bezier(.4,0,.2,1);--radio:12px;--radio-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--oscuro);color:var(--texto);line-height:1.6;overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+.cursor-dot{width:8px;height:8px;background:var(--naranja);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+body.ch .cursor-dot{width:12px;height:12px;background:var(--naranja-claro)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+.navbar.scrolled{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--gris-borde);padding:1rem 2rem}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--font-t);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;color:#fff}
+.nav-logo span{color:var(--naranja)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(232,245,233,.75);position:relative;transition:color var(--trans)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--naranja);transition:width var(--trans)}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--naranja);color:#fff!important;padding:.6rem 1.4rem;border-radius:50px;font-weight:600;font-size:.875rem;transition:transform var(--trans),box-shadow var(--trans)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,4,.4)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;display:block}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{display:none;position:fixed;inset:0;background:rgba(13,17,23,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-family:var(--font-t);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;text-transform:uppercase;transition:color var(--trans)}
+.nav-mobile a:hover{color:var(--naranja)}
+
+/* PAGE HERO */
+.page-hero{min-height:65vh;display:flex;align-items:flex-end;padding:8rem 2rem 4rem;position:relative;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1800&q=70') center/cover;transform:scale(1.05)}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(13,17,23,.8) 0%,rgba(27,67,50,.4) 60%,rgba(13,17,23,.9) 100%)}
+.page-hero-inner{max-width:1240px;margin:0 auto;width:100%;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,245,233,.45);margin-bottom:1rem}
+.breadcrumb a{color:rgba(232,245,233,.45);transition:color var(--trans)}
+.breadcrumb a:hover{color:var(--naranja)}
+.breadcrumb span{color:rgba(232,245,233,.25)}
+.page-hero h1{font-family:var(--font-t);font-size:clamp(2.8rem,6vw,5.5rem);font-weight:900;line-height:1;letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.page-hero h1 em{font-style:normal;color:var(--naranja)}
+.page-hero p{color:rgba(232,245,233,.65);max-width:560px;font-size:1rem;line-height:1.8}
+
+/* NAV DEPORTES (anclas) */
+.deporte-nav{background:var(--oscuro-medio);border-bottom:1px solid var(--gris-borde);position:sticky;top:72px;z-index:100;overflow-x:auto;scrollbar-width:none}
+.deporte-nav::-webkit-scrollbar{display:none}
+.deporte-nav-inner{max-width:1240px;margin:0 auto;display:flex;gap:0;padding:0 2rem}
+.d-nav-btn{background:transparent;border:none;border-bottom:2px solid transparent;padding:1rem 1.25rem;font-family:var(--font-b);font-size:.83rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(232,245,233,.45);cursor:pointer;transition:all var(--trans);white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+.d-nav-btn svg{width:16px;height:16px;stroke:currentColor;fill:none}
+.d-nav-btn:hover{color:var(--texto)}
+.d-nav-btn.active{color:var(--naranja);border-bottom-color:var(--naranja)}
+
+/* SECCIONES DEPORTE */
+.deporte-section{padding:5rem 2rem;border-bottom:1px solid var(--gris-borde)}
+.deporte-section:nth-child(even){background:var(--oscuro-medio)}
+.deporte-section:nth-child(odd){background:var(--oscuro)}
+.container{max-width:1240px;margin:0 auto}
+
+/* HERO DEPORTE (primera sección) */
+.deporte-hero{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:4rem}
+.deporte-hero.reverse{direction:rtl}
+.deporte-hero.reverse>*{direction:ltr}
+.deporte-hero-img{position:relative;border-radius:var(--radio-lg);overflow:hidden;aspect-ratio:4/3}
+.deporte-hero-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.deporte-hero-img:hover img{transform:scale(1.04)}
+.deporte-hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(27,67,50,.3),transparent 60%)}
+.deporte-badge-hero{position:absolute;top:1.25rem;left:1.25rem;background:var(--naranja);color:#fff;font-family:var(--font-t);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border-radius:50px}
+.deporte-hero-info{}
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--naranja);display:block;margin-bottom:.6rem}
+.deporte-hero-info h2{font-family:var(--font-t);font-size:clamp(2rem,3.5vw,3rem);font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:1rem}
+.deporte-hero-info p{color:rgba(232,245,233,.65);line-height:1.85;margin-bottom:1.5rem;font-size:.97rem}
+.nivel-bar{background:rgba(255,255,255,.07);border-radius:50px;padding:.6rem 1.25rem;display:inline-flex;align-items:center;gap:.75rem;margin-bottom:1.5rem;border:1px solid var(--gris-borde)}
+.nivel-label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,245,233,.45)}
+.nivel-dots{display:flex;gap:.3rem}
+.nivel-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15)}
+.nivel-dot.on{background:var(--naranja)}
+.btn-ruta{display:inline-flex;align-items:center;gap:.5rem;background:var(--naranja);color:#fff;padding:.8rem 1.8rem;border-radius:50px;font-family:var(--font-t);font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;transition:all var(--trans);border:2px solid var(--naranja)}
+.btn-ruta:hover{background:transparent;color:var(--naranja);transform:translateY(-2px)}
+.btn-ruta svg{width:16px;height:16px;stroke:currentColor;fill:none}
+
+/* ACORDEÓN */
+.accordion-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2.5rem}
+.accordion-item{background:rgba(255,255,255,.03);border:1px solid var(--gris-borde);border-radius:var(--radio)}
+.accordion-header{width:100%;background:transparent;border:none;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-family:var(--font-b);font-size:.9rem;font-weight:600;color:var(--texto);text-align:left;transition:color var(--trans)}
+.accordion-header:hover{color:var(--naranja)}
+.accordion-icon{width:20px;height:20px;stroke:rgba(232,245,233,.4);fill:none;flex-shrink:0;transition:transform .3s ease,stroke var(--trans)}
+.accordion-item.open .accordion-icon{transform:rotate(45deg);stroke:var(--naranja)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;padding:0 1.25rem}
+.accordion-item.open .accordion-body{max-height:300px;padding-bottom:1.1rem}
+.accordion-body p,.accordion-body ul{color:rgba(232,245,233,.6);font-size:.875rem;line-height:1.75}
+.accordion-body ul{padding-left:1.25rem}
+.accordion-body ul li{margin-bottom:.3rem}
+
+/* ZONAS */
+.zonas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.zona-card{position:relative;border-radius:var(--radio);overflow:hidden;aspect-ratio:3/2;cursor:pointer}
+.zona-card img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.zona-card:hover img{transform:scale(1.08)}
+.zona-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(13,17,23,.85) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:1rem}
+.zona-card h4{font-family:var(--font-t);font-weight:700;font-size:.9rem;color:#fff;margin-bottom:.2rem}
+.zona-card p{font-size:.72rem;color:rgba(232,245,233,.55);letter-spacing:.06em;text-transform:uppercase}
+
+/* EQUIPAMIENTO */
+.equip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.equip-item{background:rgba(255,255,255,.03);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:1.25rem 1rem;text-align:center;transition:all var(--trans)}
+.equip-item:hover{border-color:rgba(232,93,4,.3);transform:translateY(-4px)}
+.equip-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--verde),var(--verde-medio));border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
+.equip-icon svg{width:22px;height:22px;stroke:#fff;fill:none}
+.equip-item h4{font-family:var(--font-t);font-size:.85rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.equip-item p{font-size:.78rem;color:rgba(232,245,233,.5);line-height:1.6}
+.equip-link{display:inline-block;margin-top:.6rem;font-size:.75rem;color:var(--naranja);font-weight:600}
+
+/* SECTION TITLE */
+.section-title{font-family:var(--font-t);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:#fff;margin-bottom:1rem}
+
+/* CTA DEPORTE */
+.deporte-cta-strip{background:linear-gradient(135deg,var(--verde) 0%,var(--verde-medio) 100%);border-radius:var(--radio-lg);padding:2.5rem 3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:3rem;flex-wrap:wrap}
+.deporte-cta-strip h3{font-family:var(--font-t);font-size:1.5rem;font-weight:800;color:#fff}
+.deporte-cta-strip p{color:rgba(232,245,233,.7);font-size:.9rem;margin-top:.25rem}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+/* FOOTER */
+footer{background:#080C10;border-top:1px solid var(--gris-borde);padding:3rem 2rem 1.5rem}
+.footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand .nav-logo{margin-bottom:.75rem}
+.footer-brand p{color:rgba(232,245,233,.4);font-size:.85rem;line-height:1.7;max-width:260px;margin-bottom:1rem}
+.footer-social{display:flex;gap:.6rem}
+.s-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;transition:all var(--trans);color:rgba(232,245,233,.4)}
+.s-btn:hover{border-color:var(--naranja);color:var(--naranja);transform:translateY(-2px)}
+.s-btn svg{width:15px;height:15px;fill:currentColor}
+.footer-col h4{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{font-size:.85rem;color:rgba(232,245,233,.4);transition:color var(--trans)}
+.footer-col ul a:hover{color:var(--naranja-claro)}
+.footer-bottom{max-width:1240px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.78rem;color:rgba(232,245,233,.28)}
+.footer-bottom a{color:var(--naranja)}
+
+@media(max-width:1024px){
+  .deporte-hero{grid-template-columns:1fr;gap:2rem}
+  .deporte-hero.reverse{direction:ltr}
+  .accordion-grid{grid-template-columns:1fr}
+  .zonas-grid{grid-template-columns:1fr 1fr}
+  .equip-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}.hamburger{display:flex}
+  .zonas-grid{grid-template-columns:1fr 1fr}
+  .equip-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .deporte-cta-strip{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+    Trail<span>Vida</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="rutas.html">Rutas</a></li>
+    <li><a href="deportes.html" class="active">Deportes</a></li>
+    <li><a href="guias.html">Guías</a></li>
+    <li><a href="comunidad.html">Comunidad</a></li>
+    <li><a href="comunidad.html" class="nav-cta">Únete</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Inicio</a><a href="rutas.html">Rutas</a><a href="deportes.html">Deportes</a><a href="guias.html">Guías</a><a href="comunidad.html">Comunidad</a><a href="comunidad.html" style="color:var(--naranja)">Únete</a>
+</div>
+
+<header class="page-hero">
+  <div class="page-hero-bg" id="heroBg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-inner">
+    <nav class="breadcrumb"><a href="index.html">Inicio</a><span>/</span><span style="color:rgba(232,245,233,.7)">Deportes</span></nav>
+    <h1>Deportes<br><em>Outdoor</em></h1>
+    <p>Desde el senderismo más accesible hasta la escalada técnica de nivel mundial. España tiene el escenario perfecto para cada disciplina.</p>
+  </div>
+</header>
+
+<!-- Nav anclas -->
+<nav class="deporte-nav" aria-label="Navegación de deportes">
+  <div class="deporte-nav-inner">
+    <button class="d-nav-btn active" data-target="senderismo">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 4c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM5.5 21l2-8-2-4h8l-2 4 2 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Senderismo
+    </button>
+    <button class="d-nav-btn" data-target="trail">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 4c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM5 21l3-9 2 3 4-9 2 9-4-1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Trail Running
+    </button>
+    <button class="d-nav-btn" data-target="mtb">
+      <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M14 4l-3 8H7l-2 5M14 4h2l3 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Ciclismo MTB
+    </button>
+    <button class="d-nav-btn" data-target="escalada">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 17l5-10 4 6 3-5 6 9H3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Escalada
+    </button>
+    <button class="d-nav-btn" data-target="kayak">
+      <svg viewBox="0 0 24 24" stroke-width="2"><path d="M2 12h20M7 6l-4 6 4 6M17 6l4 6-4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Kayak
+    </button>
+    <button class="d-nav-btn" data-target="esqui">
+      <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="19" x2="19" y2="5" stroke-linecap="round"/><circle cx="17" cy="7" r="2"/><path d="M3 21l4-4 3 1 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Esquí
+    </button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ===== SENDERISMO ===== -->
+<section class="deporte-section" id="senderismo">
+  <div class="container">
+    <div class="deporte-hero reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=900&q=80" alt="Senderistas caminando por la Ruta del Cares en Picos de Europa al atardecer" loading="lazy">
+        <span class="deporte-badge-hero">El deporte rey</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Senderismo</span>
+        <h2>El Deporte que<br>Conecta con la Tierra</h2>
+        <p>España cuenta con más de 100.000 km de senderos señalizados, desde los Pirineos hasta Sierra Nevada, pasando por la costa gallega y los desiertos de Almería. El senderismo es accesible para todos y puede practicarse los 365 días del año en algún rincón del país.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div><div class="nivel-dot"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Básico–Medio</span>
+        </div>
+        <a href="rutas.html?tipo=Senderismo" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+          Ver Rutas de Senderismo
+        </a>
+      </div>
+    </div>
+
+    <h3 class="section-title reveal">Preguntas Frecuentes</h3>
+    <div class="accordion-grid" id="acc-senderismo">
+      <div class="accordion-item">
+        <button class="accordion-header">¿Qué calzado necesito para senderismo? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Para rutas sencillas con caminos marcados bastará una zapatilla de trail ligera. Para terrenos irregulares, piedra suelta o barro es imprescindible una bota de senderismo con tobillera, membrana Gore-Tex y suela Vibram.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Cuánta agua llevar en una ruta? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>La regla general es 500 ml por hora de actividad. En verano o en rutas de alta montaña aumenta a 750 ml/hora. Añade siempre un extra de reserva del 20%. Una mochila de hidratación de 2 litros es ideal para rutas de medio día.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Qué app usar para seguir rutas GPX? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Wikiloc y Komoot son las más usadas en España. Ambas permiten descargar rutas para uso sin conexión. Wikiloc tiene mayor base de datos local; Komoot destaca por la planificación y la navegación guiada por voz.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Se puede hacer senderismo en verano en Sierra Nevada? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Sí, pero con precauciones. Sal antes de las 7 AM, lleva protección solar factor 50, gafas de sol con filtro UV y gorro. A partir de los 3.000 m el aire es más frío de lo esperado, lleva siempre una capa extra.</p></div>
+      </div>
+    </div>
+
+    <h3 class="section-title reveal" style="margin-top:3rem">Equipamiento Esencial</h3>
+    <div class="equip-grid">
+      <div class="equip-item reveal reveal-d1">
+        <div class="equip-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM12 12v.01"/></svg></div>
+        <h4>Botas de montaña</h4>
+        <p>Con membrana impermeable y suela de agarre. Clave para prevenir torceduras.</p>
+        <a href="guias.html" class="equip-link">Guía de compra →</a>
+      </div>
+      <div class="equip-item reveal reveal-d2">
+        <div class="equip-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2a10 10 0 110 20A10 10 0 0112 2zm0 0v10l4 4"/></svg></div>
+        <h4>Mochila 20–35 L</h4>
+        <p>Con sistema de hidratación, tirantes ajustables y funda para lluvia integrada.</p>
+        <a href="guias.html" class="equip-link">Guía de compra →</a>
+      </div>
+      <div class="equip-item reveal reveal-d3">
+        <div class="equip-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 3h18v13H3zM8 21h8M12 16v5"/></svg></div>
+        <h4>GPS o app offline</h4>
+        <p>Wikiloc, Komoot o Garmin. El GPS falla; descarga siempre el track antes de salir.</p>
+        <a href="guias.html" class="equip-link">Qué app usar →</a>
+      </div>
+      <div class="equip-item reveal reveal-d4">
+        <div class="equip-icon"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+        <h4>Bastones telescópicos</h4>
+        <p>Reducen el impacto en rodillas hasta un 30% en bajadas. Imprescindibles en rutas largas.</p>
+        <a href="guias.html" class="equip-link">Guía de compra →</a>
+      </div>
+    </div>
+
+    <h3 class="section-title reveal" style="margin-top:3rem">Mejores Zonas en España</h3>
+    <div class="zonas-grid">
+      <div class="zona-card reveal reveal-d1">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=70" alt="Picos de Europa — senderismo de alta montaña en Asturias y Cantabria" loading="lazy">
+        <div class="zona-card-overlay"><h4>Picos de Europa</h4><p>Asturias · Cantabria</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d2">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&q=70" alt="Sierra Nevada — senderismo en la montaña más alta de la Península" loading="lazy">
+        <div class="zona-card-overlay"><h4>Sierra Nevada</h4><p>Andalucía</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d3">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=70" alt="Pirineos aragoneses — el paraíso del senderismo de alta montaña en España" loading="lazy">
+        <div class="zona-card-overlay"><h4>Pirineos</h4><p>Aragón · Cataluña · Navarra</p></div>
+      </div>
+    </div>
+
+    <div class="deporte-cta-strip reveal">
+      <div><h3>¿Listo para salir al monte?</h3><p>Más de 900 rutas de senderismo esperándote</p></div>
+      <a href="rutas.html?tipo=Senderismo" class="btn-ruta">Explorar rutas</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRAIL RUNNING ===== -->
+<section class="deporte-section" id="trail">
+  <div class="container">
+    <div class="deporte-hero reverse reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=900&q=80" alt="Runner de trail corriendo al atardecer por sendero de montaña en España" loading="lazy">
+        <span class="deporte-badge-hero">En auge</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Trail Running</span>
+        <h2>Correr por la<br>Montaña es otra Cosa</h2>
+        <p>El trail running en España ha crecido un 35% desde 2019. Más de 1.200 carreras anuales, desde populares de 5 km hasta ultra trails de 160 km como la Transvulcania o la UTMB. Zapatillas, técnica y mucho disfrute.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Medio–Alto</span>
+        </div>
+        <a href="rutas.html?tipo=Trail Running" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ver Rutas de Trail
+        </a>
+      </div>
+    </div>
+
+    <div class="accordion-grid" id="acc-trail">
+      <div class="accordion-item">
+        <button class="accordion-header">¿Diferencia entre trail y running urbano? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>El trail running se practica en terrenos naturales con desnivel, barro, piedras y raíces. Requiere mayor técnica de pisada, fuerza en cuádriceps y capacidad de orientación. Las zapatillas tienen más agarre y protección.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Cómo empezar en trail si vengo del running? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Empieza con rutas de menos de 500 m de desnivel y distancia no superior a 15 km. Refuerza cuádriceps y gemelos con trabajo de fuerza 2 veces por semana. Aprende a dosificar el esfuerzo en subida (por tiempo, no por ritmo).</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Qué carreras hacer como primer trail? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>El Maratón Alpino Madrileño, la Mitja Trail de Montserrat o cualquier carrera local de 10-18 km son perfectas para debutar. Busca pruebas con poco desnivel acumulado (menos de 600 m) para tu primer año.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Material obligatorio en carreras de trail <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><ul><li>Mochila de trail (5-10 L)</li><li>Agua mínima 500 ml</li><li>Manta de emergencia</li><li>Silbato</li><li>Chubasquero</li><li>Frontal con pilas</li><li>Teléfono cargado</li></ul></div>
+      </div>
+    </div>
+
+    <h3 class="section-title reveal" style="margin-top:3rem">Carreras Referentes en España</h3>
+    <div class="zonas-grid">
+      <div class="zona-card reveal reveal-d1">
+        <img src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=500&q=70" alt="Transvulcania ultra trail en La Palma, Islas Canarias" loading="lazy">
+        <div class="zona-card-overlay"><h4>Transvulcania</h4><p>La Palma · 73 km · 4.400 m D+</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d2">
+        <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=500&q=70" alt="Zegama Aizkorri trail clásico en el País Vasco" loading="lazy">
+        <div class="zona-card-overlay"><h4>Zegama-Aizkorri</h4><p>País Vasco · 42 km · 3.500 m D+</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d3">
+        <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=500&q=70" alt="Cavalls del Vent ultra trail en el Pirineo catalán" loading="lazy">
+        <div class="zona-card-overlay"><h4>Cavalls del Vent</h4><p>Cataluña · 100 km · 7.000 m D+</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MTB ===== -->
+<section class="deporte-section" id="mtb">
+  <div class="container">
+    <div class="deporte-hero reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=900&q=80" alt="Ciclista de montaña descendiendo por single track en el bosque" loading="lazy">
+        <span class="deporte-badge-hero">Adrenalina</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Ciclismo de Montaña</span>
+        <h2>Kilómetros de<br>Singletracks Salvajes</h2>
+        <p>España tiene una red de senderos MTB que es la envidia de Europa. Desde los loamy trails del norte húmedo hasta los técnicos roots del Pirineo, pasando por las vistas espectaculares del arco mediterráneo y los desiertos del sur.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Medio–Alto</span>
+        </div>
+        <a href="rutas.html?tipo=MTB" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M14 4l-3 8H7l-2 5M14 4h2l3 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ver Rutas MTB
+        </a>
+      </div>
+    </div>
+
+    <div class="accordion-grid">
+      <div class="accordion-item">
+        <button class="accordion-header">¿Qué tipo de MTB necesito? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Para XC (cross-country) y rutas largas: bici ligera con 100-120mm de recorrido. Para Enduro y terreno técnico: 140-160mm. Para DH (descenso): 170-200mm. La mayoría de riders encuentra en el Enduro la mayor versatilidad.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿29 o 27.5 pulgadas? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>El 29" rueda mejor por encima de obstáculos y es más rápido en subida. El 27.5" es más ágil en técnica y en espacios reducidos. Las mullet (29 delante / 27.5 detrás) combinan lo mejor de ambos mundos y son la tendencia actual.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Zonas MTB top en España <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><ul><li>Ainsa (Aragón) — referente mundial enduro</li><li>Andorra — red de bikes parks y rutas alpinas</li><li>Soria — pinares infinitos y barro loamy</li><li>Marbella — clima perfecto todo el año</li><li>Canarias — volcanes y vistas únicas</li></ul></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">Seguridad en MTB: qué protecciones usar <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>Mínimo obligatorio: casco integral o enduro, guantes full-finger y gafas. Para enduro y DH añade: rodilleras, coderas y peto de espalda. Nunca salgas sin el teléfono cargado y di siempre dónde vas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ESCALADA ===== -->
+<section class="deporte-section" id="escalada">
+  <div class="container">
+    <div class="deporte-hero reverse reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?w=900&q=80" alt="Escalador en vía equipada con vistas panorámicas al valle en España" loading="lazy">
+        <span class="deporte-badge-hero">Clase mundial</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Escalada en Roca</span>
+        <h2>Paredes que Atraen<br>al Mundo Entero</h2>
+        <p>España tiene algunos de los mejores sectores de escalada deportiva del planeta. El clima benigno de Siurana, Chulilla o El Chorro atrae a escaladores de toda Europa de octubre a mayo. Más de 40.000 vías equipadas en territorio nacional.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Medio–Avanzado</span>
+        </div>
+        <a href="rutas.html?tipo=Escalada" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 17l5-10 4 6 3-5 6 9H3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sectores de Escalada
+        </a>
+      </div>
+    </div>
+
+    <h3 class="section-title reveal">Sectores de Referencia</h3>
+    <div class="zonas-grid">
+      <div class="zona-card reveal reveal-d1">
+        <img src="https://images.unsplash.com/photo-1522163182402-834f871fd851?w=500&q=70" alt="Sector Siurana en Tarragona, referente mundial de la escalada deportiva" loading="lazy">
+        <div class="zona-card-overlay"><h4>Siurana</h4><p>Cataluña · +200 vías · 6a–9b</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d2">
+        <img src="https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=500&q=70" alt="El Chorro y Camino del Rey en Málaga, icono de la escalada en Andalucía" loading="lazy">
+        <div class="zona-card-overlay"><h4>El Chorro</h4><p>Málaga · +600 vías · 4a–8c</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d3">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=70" alt="Rodellar en Aragón, barrancos de toba caliza únicos para la escalada" loading="lazy">
+        <div class="zona-card-overlay"><h4>Rodellar</h4><p>Aragón · Toba caliza · 6b–9a</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KAYAK ===== -->
+<section class="deporte-section" id="kayak">
+  <div class="container">
+    <div class="deporte-hero reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=900&q=80" alt="Kayakistas remando por el río Sella en Asturias con vegetación exuberante" loading="lazy">
+        <span class="deporte-badge-hero">Agua y aventura</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Kayak y Piragüismo</span>
+        <h2>Ríos, Costas y<br>Lagos Imposibles</h2>
+        <p>España tiene costas en el Atlántico, el Cantábrico, el Mediterráneo y el mar Balear, más los ríos pirenaicos de aguas bravas y los embalses interiores. Una variedad de escenarios acuáticos única en Europa para practicar kayak durante todo el año.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div><div class="nivel-dot"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Básico–Medio</span>
+        </div>
+        <a href="#" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M2 12h20M7 6l-4 6 4 6M17 6l4 6-4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ver Rutas en Kayak
+        </a>
+      </div>
+    </div>
+    <div class="accordion-grid">
+      <div class="accordion-item">
+        <button class="accordion-header">¿Kayak de mar o de río? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>El kayak de mar es más largo y estable, ideal para travesías costeras. El de río es más corto y maniobrable, perfecto para aguas bravas. Si solo vas a practicar uno, el kayak polivalente o "sea touring" cubre el 80% de situaciones.</p></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-header">¿Dónde hacer kayak en España sin experiencia? <svg class="accordion-icon" viewBox="0 0 24 24" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="accordion-body"><p>El Descenso del Sella (Asturias) es la opción más popular y asequible para principiantes. Las Rías Baixas gallegas y la bahía de Roses en Girona son también perfectas para iniciarse en aguas tranquilas con paisajes espectaculares.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ESQUÍ ===== -->
+<section class="deporte-section" id="esqui">
+  <div class="container">
+    <div class="deporte-hero reverse reveal">
+      <div class="deporte-hero-img">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=900&q=80" alt="Esquiadores en pistas nevadas de Sierra Nevada, estación de esquí en Andalucía" loading="lazy">
+        <span class="deporte-badge-hero">Invierno épico</span>
+      </div>
+      <div class="deporte-hero-info">
+        <span class="section-label">Esquí y Snowboard</span>
+        <h2>Nieve Garantizada<br>de Diciembre a Mayo</h2>
+        <p>España tiene 31 estaciones de esquí alpino, desde los Pirineos catalanes y aragoneses hasta la excepcional Sierra Nevada, única estación en Europa donde puedes esquiar con vistas al mar. Más de 1.000 km de pistas homologadas.</p>
+        <div class="nivel-bar">
+          <span class="nivel-label">Nivel:</span>
+          <div class="nivel-dots">
+            <div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot on"></div><div class="nivel-dot"></div><div class="nivel-dot"></div>
+          </div>
+          <span style="font-size:.8rem;color:rgba(232,245,233,.5)">Todos los niveles</span>
+        </div>
+        <a href="#" class="btn-ruta">
+          <svg viewBox="0 0 24 24" stroke-width="2"><line x1="5" y1="19" x2="19" y2="5" stroke-linecap="round"/><circle cx="17" cy="7" r="2"/></svg>
+          Guía de Estaciones
+        </a>
+      </div>
+    </div>
+    <h3 class="section-title reveal">Estaciones Destacadas</h3>
+    <div class="zonas-grid">
+      <div class="zona-card reveal reveal-d1">
+        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500&q=70" alt="Sierra Nevada estación de esquí en Granada con vistas al Mediterráneo" loading="lazy">
+        <div class="zona-card-overlay"><h4>Sierra Nevada</h4><p>Granada · 110 km de pistas</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d2">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&q=70" alt="Baqueira Beret estación de esquí en el Valle de Arán, Pirineos catalanes" loading="lazy">
+        <div class="zona-card-overlay"><h4>Baqueira Beret</h4><p>Lleida · 170 km de pistas</p></div>
+      </div>
+      <div class="zona-card reveal reveal-d3">
+        <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500&q=70" alt="Formigal estación de esquí en el Pirineo aragonés en Huesca" loading="lazy">
+        <div class="zona-card-overlay"><h4>Formigal</h4><p>Huesca · 137 km de pistas</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="font-size:1.2rem;margin-bottom:.75rem">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+        Trail<span>Vida</span>
+      </a>
+      <p>Tu guía de referencia para el deporte outdoor en España.</p>
+      <div class="footer-social">
+        <a href="#" class="s-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" class="s-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Deportes</h4><ul><li><a href="#senderismo">Senderismo</a></li><li><a href="#trail">Trail Running</a></li><li><a href="#mtb">Ciclismo MTB</a></li><li><a href="#escalada">Escalada</a></li><li><a href="#kayak">Kayak</a></li><li><a href="#esqui">Esquí</a></li></ul></div>
+    <div class="footer-col"><h4>Contenido</h4><ul><li><a href="rutas.html">Rutas</a></li><li><a href="guias.html">Guías</a></li><li><a href="comunidad.html">Comunidad</a></li><li><a href="index.html">Inicio</a></li></ul></div>
+    <div class="footer-col"><h4>TrailVida</h4><ul><li><a href="#">Sobre nosotros</a></li><li><a href="#">Colabora</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Contacto</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 TrailVida. Todos los derechos reservados.</p><p><a href="#">Privacidad</a> · <a href="#">Cookies</a></p></div>
+</footer>
+
+<script>
+// Cursor
+const dot=document.getElementById('cursorDot');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,.zona-card,.equip-item,.accordion-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+// Navbar
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+
+// Hamburger
+const hbg=document.getElementById('hamburger'),nm=document.getElementById('navMobile');
+hbg.addEventListener('click',()=>{const o=hbg.classList.toggle('active');nm.classList.toggle('open',o);hbg.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+nm.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{hbg.classList.remove('active');nm.classList.remove('open');document.body.style.overflow='';}));
+
+// Parallax hero
+window.addEventListener('scroll',()=>{
+  const s=window.scrollY;
+  if(s<window.innerHeight) document.getElementById('heroBg').style.transform=`scale(1.05) translateY(${s*.12}px)`;
+},{passive:true});
+
+// Accordion
+document.querySelectorAll('.accordion-header').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.parentElement;
+    const wasOpen=item.classList.contains('open');
+    // close siblings in same grid
+    const siblings=item.parentElement.querySelectorAll('.accordion-item');
+    siblings.forEach(s=>s.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  });
+});
+
+// Deporte nav active on scroll
+const sections=['senderismo','trail','mtb','escalada','kayak','esqui'];
+const navBtns=document.querySelectorAll('.d-nav-btn');
+const sObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id=e.target.id;
+      navBtns.forEach(b=>{b.classList.toggle('active',b.dataset.target===id);});
+    }
+  });
+},{threshold:.3});
+sections.forEach(id=>{const el=document.getElementById(id);if(el)sObs.observe(el);});
+
+// Deporte nav click scroll
+navBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const el=document.getElementById(btn.dataset.target);
+    if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+
+// Reveal
+const rObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+// Page fade
+document.body.style.opacity='0';document.body.style.transition='opacity .3s ease';
+window.addEventListener('load',()=>{document.body.style.opacity='1';});
+document.querySelectorAll('a[href$=".html"]').forEach(l=>{l.addEventListener('click',e=>{const h=l.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>{window.location.href=h;},280);});});
+</script>
+</body>
+</html>

@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrailVida — Muévete. Explora. Vive. | Rutas y Deporte Outdoor en España</title>
+<meta name="description" content="TrailVida es tu guía de actividad física al aire libre en España. Rutas de senderismo, trail running, ciclismo de montaña y turismo activo. Descubre los mejores paisajes españoles.">
+<meta property="og:title" content="TrailVida — Muévete. Explora. Vive.">
+<meta property="og:description" content="Rutas de senderismo, deportes en la naturaleza y turismo activo en España. Tu comunidad outdoor.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1B4332">
+<link rel="canonical" href="https://trailvida.es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- Schema markup JSON-LD -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "TrailVida",
+  "url": "https://trailvida.es",
+  "description": "Guía de actividad física outdoor en España",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://trailvida.es/rutas?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<style>
+/* ===================================
+   VARIABLES & RESET
+=================================== */
+:root {
+  --verde: #1B4332;
+  --verde-medio: #2D6A4F;
+  --verde-claro: #52B788;
+  --naranja: #E85D04;
+  --naranja-claro: #F48C06;
+  --oscuro: #0D1117;
+  --oscuro-medio: #161B22;
+  --claro: #F8F9FA;
+  --blanco: #ffffff;
+  --texto-sobre-oscuro: #E8F5E9;
+  --gris-medio: #6B7280;
+  --gris-borde: rgba(255,255,255,0.12);
+  --font-titulo: 'Montserrat', sans-serif;
+  --font-cuerpo: 'Inter', sans-serif;
+  --sombra-card: 0 8px 32px rgba(0,0,0,0.18);
+  --radio: 12px;
+  --radio-grande: 20px;
+  --transicion: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-cuerpo);
+  background: var(--oscuro);
+  color: var(--texto-sobre-oscuro);
+  line-height: 1.6;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+img { max-width: 100%; display: block; }
+a { text-decoration: none; color: inherit; }
+
+/* ===================================
+   CURSOR PERSONALIZADO
+=================================== */
+.cursor-dot {
+  width: 8px; height: 8px;
+  background: var(--naranja);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, background 0.2s;
+}
+body.cursor-hover .cursor-dot { width: 12px; height: 12px; background: var(--naranja-claro); }
+
+/* ===================================
+   NAVBAR
+=================================== */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s ease;
+}
+.navbar.scrolled {
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gris-borde);
+  padding: 1rem 2rem;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-titulo);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: -0.02em;
+  color: var(--blanco);
+}
+.nav-logo svg { width: 32px; height: 32px; }
+.nav-logo span { color: var(--naranja); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(232,245,233,0.8);
+  position: relative;
+  transition: color var(--transicion);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--naranja);
+  transition: width var(--transicion);
+}
+.nav-links a:hover { color: var(--blanco); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: var(--naranja);
+  color: var(--blanco) !important;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(232,93,4,0.4);
+}
+.nav-cta::after { display: none !important; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  width: 24px; height: 2px;
+  background: var(--blanco);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  display: block;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ===================================
+   HERO SECTION
+=================================== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.1);
+  will-change: transform;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(13,17,23,0.75) 0%,
+    rgba(27,67,50,0.55) 50%,
+    rgba(13,17,23,0.85) 100%
+  );
+  animation: gradientShift 8s ease-in-out infinite alternate;
+}
+
+@keyframes gradientShift {
+  0% { opacity: 0.85; }
+  100% { opacity: 0.95; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1.5rem;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(232,93,4,0.15);
+  border: 1px solid rgba(232,93,4,0.3);
+  border-radius: 50px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--naranja-claro);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  animation: fadeInDown 0.8s ease both;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--naranja);
+  border-radius: 50%;
+  animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.hero-title {
+  font-family: var(--font-titulo);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--blanco);
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--naranja);
+  display: block;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: rgba(232,245,233,0.8);
+  max-width: 560px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.btn-primary {
+  background: var(--naranja);
+  color: var(--blanco);
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all var(--transicion);
+  border: 2px solid var(--naranja);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(232,93,4,0.45);
+  background: var(--naranja-claro);
+  border-color: var(--naranja-claro);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--blanco);
+  padding: 0.9rem 2.2rem;
+  border-radius: 50px;
+  font-family: var(--font-titulo);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: all var(--transicion);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-secondary:hover {
+  border-color: var(--blanco);
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-3px);
+}
+
+.hero-stats {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 3rem;
+  z-index: 2;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+.hero-stat-item { text-align: center; }
+.hero-stat-num {
+  font-family: var(--font-titulo);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--blanco);
+  display: block;
+}
+.hero-stat-num span { color: var(--naranja); }
+.hero-stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(232,245,233,0.6);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  animation: fadeIn 1s ease 1s both;
+}
+.scroll-indicator span {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(232,245,233,0.5);
+  writing-mode: vertical-rl;
+}
+.scroll-arrow {
+  width: 2px; height: 40px;
+  background: linear-gradient(to bottom, rgba(232,93,4,0), var(--naranja));
+  border-radius: 2px;
+  animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(0.7); opacity: 0.5; }
+}
+
+/* ===================================
+   SECCIÓN: PILARES
+=================================== */
+.section-pilares {
+  background: var(--claro);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.section-pilares::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--verde), var(--naranja), var(--verde-claro));
+}
+
+.pilar-diagonal {
+  position: absolute;
+  bottom: -2px; right: -2px;
+  width: 200px; height: 80px;
+  background: var(--oscuro);
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--naranja);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-titulo);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--oscuro);
+}
+.section-title-light {
+  color: var(--blanco);
+}
+
+.pilares-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+
+.pilar-card {
+  background: var(--blanco);
+  border-radius: var(--radio-grande);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+}
+.pilar-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--sombra-card);
+}
+.pilar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--naranja);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.4s ease;
+}
+.pilar-card:hover::before { transform: scaleY(1); }
+
+.pilar-num {
+  font-family: var(--font-titulo);
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(27,67,50,0.06);
+  position: absolute;
+  top: 1rem; right: 1.5rem;
+  line-height: 1;
+  user-select: none;
+}
+.pilar-icon {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, var(--verde), var(--verde-medio));
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+}
+.pilar-card:hover .pilar-icon { transform: rotate(-8deg) scale(1.1); }
+.pilar-icon svg { width: 28px; height: 28px; stroke: var(--blanco); fill: none; }
+
+.pilar-card h3 {
+  font-family: var(--font-titulo);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--oscuro);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.pilar-card p {
+  color: var(--gris-medio);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.pilar-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--verde);
+  transition: gap var(--transicion);
+}
+.pilar-link:hover { gap: 0.8rem; color: var(--naranja); }
+.pilar-link svg { width: 16px; height: 16px; }
+
+/* ===================================
+   SECCIÓN: RUTAS DESTACADAS
+=================================== */
+.section-rutas {
+  background: var(--oscuro);
+  padding: 6rem 2rem;
+  position: relative;
+}
+.section-rutas-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ver-todas {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--naranja);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid transparent;
+  transition: all var(--transicion);
+}
+.ver-todas:hover { border-bottom-color: var(--naranja); gap: 0.8rem; }
+
+.rutas-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.25rem;
+}
+
+.ruta-card {
+  position: relative;
+  border-radius: var(--radio-grande);
+  overflow: hidden;
+  background: var(--oscuro-medio);
+  border: 1px solid var(--gris-borde);
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  cursor: pointer;
+}
+.ruta-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+.ruta-card.featured { grid-row: span 2; }
+
+.ruta-card img {
+  width: 100%; height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.ruta-card.featured img { min-height: 440px; }
+.ruta-card:hover img { transform: scale(1.06); }
+
+.ruta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.2) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+}
+.ruta-card.featured .ruta-overlay { padding: 2rem; }
+
+.ruta-badge {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.badge-facil { background: rgba(82,183,136,0.25); color: #52B788; border: 1px solid rgba(82,183,136,0.4); }
+.badge-moderado { background: rgba(248,196,113,0.2); color: #F8C471; border: 1px solid rgba(248,196,113,0.35); }
+.badge-dificil { background: rgba(232,93,4,0.2); color: #F48C06; border: 1px solid rgba(232,93,4,0.35); }
+
+.ruta-ca {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(232,245,233,0.5);
+  margin-bottom: 0.3rem;
+}
+.ruta-overlay h3 {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--blanco);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+.ruta-card.featured .ruta-overlay h3 { font-size: 1.6rem; }
+
+.ruta-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ruta-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  color: rgba(232,245,233,0.7);
+}
+.ruta-meta-item svg { width: 14px; height: 14px; stroke: var(--naranja); fill: none; }
+
+.ruta-btn-hover {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: var(--naranja);
+  color: var(--blanco);
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: all var(--transicion);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.ruta-card:hover .ruta-btn-hover {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.ruta-estrellas {
+  color: #F8C471;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ===================================
+   SECCIÓN: ESTADÍSTICAS
+=================================== */
+.section-stats {
+  background: var(--verde);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  clip-path: polygon(0 4%, 100% 0, 100% 96%, 0 100%);
+  margin: -2rem 0;
+  z-index: 1;
+}
+.section-stats::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.1);
+  top: -200px; right: -200px;
+}
+
+.stats-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.stats-left .section-label { color: var(--naranja-claro); }
+.stats-left .section-title { color: var(--blanco); margin-bottom: 1.25rem; }
+.stats-left p {
+  color: rgba(232,245,233,0.75);
+  font-size: 1rem;
+  max-width: 440px;
+  margin-bottom: 2rem;
+  line-height: 1.8;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.stat-box {
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+}
+.stat-num {
+  font-family: var(--font-titulo);
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--blanco);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+}
+.stat-num .unit {
+  font-size: 1.2rem;
+  color: var(--naranja-claro);
+}
+.stat-label {
+  font-size: 0.85rem;
+  color: rgba(232,245,233,0.65);
+  margin-top: 0.4rem;
+  line-height: 1.4;
+}
+
+/* ===================================
+   SECCIÓN: DEPORTES RÁPIDOS
+=================================== */
+.section-deportes {
+  background: var(--claro);
+  padding: 7rem 2rem 5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.deportes-intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+}
+.deportes-intro .section-title { color: var(--oscuro); margin-bottom: 1rem; }
+.deportes-intro p { color: var(--gris-medio); line-height: 1.7; }
+
+.deportes-slider-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.deportes-track {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+}
+.deportes-track::-webkit-scrollbar { display: none; }
+
+.deporte-pill {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  background: var(--blanco);
+  border-radius: 100px;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transicion);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.deporte-pill:hover, .deporte-pill.active {
+  border-color: var(--naranja);
+  background: var(--naranja);
+}
+.deporte-pill svg { width: 22px; height: 22px; stroke: var(--verde); fill: none; transition: stroke var(--transicion); }
+.deporte-pill:hover svg, .deporte-pill.active svg { stroke: var(--blanco); }
+.deporte-pill span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--oscuro);
+  white-space: nowrap;
+  transition: color var(--transicion);
+}
+.deporte-pill:hover span, .deporte-pill.active span { color: var(--blanco); }
+
+.deportes-showcase {
+  margin-top: 2.5rem;
+  position: relative;
+  border-radius: var(--radio-grande);
+  overflow: hidden;
+  min-height: 380px;
+}
+.deporte-panel {
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: 380px;
+}
+.deporte-panel.active { display: grid; }
+
+.deporte-panel-img {
+  position: relative;
+  overflow: hidden;
+}
+.deporte-panel-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  min-height: 380px;
+}
+.deporte-panel-info {
+  background: var(--oscuro);
+  padding: 2.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.deporte-panel-info .section-label { color: var(--naranja); }
+.deporte-panel-info h3 {
+  font-family: var(--font-titulo);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blanco);
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+.deporte-panel-info p {
+  color: rgba(232,245,233,0.7);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+.deporte-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.tag {
+  background: rgba(27,67,50,0.5);
+  border: 1px solid rgba(82,183,136,0.2);
+  color: var(--verde-claro);
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ===================================
+   SECCIÓN: GUÍAS RECIENTES
+=================================== */
+.section-guias {
+  background: var(--oscuro-medio);
+  padding: 6rem 2rem;
+  border-top: 1px solid var(--gris-borde);
+}
+.guias-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.guias-header .section-title { color: var(--blanco); }
+
+.guias-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.guia-card {
+  background: var(--oscuro);
+  border: 1px solid var(--gris-borde);
+  border-radius: var(--radio-grande);
+  overflow: hidden;
+  transition: transform var(--transicion), box-shadow var(--transicion);
+  cursor: pointer;
+}
+.guia-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  border-color: rgba(232,93,4,0.2);
+}
+
+.guia-card-img {
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+.guia-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+.guia-card:hover .guia-card-img img { transform: scale(1.07); }
+
+.guia-card-body { padding: 1.5rem; }
+.guia-card.featured .guia-card-body { padding: 1.75rem 2rem; }
+
+.guia-cat {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--naranja);
+  margin-bottom: 0.6rem;
+}
+.guia-card h3 {
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  color: var(--blanco);
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+.guia-card.featured h3 { font-size: 1.3rem; }
+.guia-card p {
+  color: rgba(232,245,233,0.55);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.guia-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.78rem;
+  color: rgba(232,245,233,0.4);
+}
+.guia-meta-sep { opacity: 0.3; }
+
+/* ===================================
+   SECCIÓN: NEWSLETTER
+=================================== */
+.section-newsletter {
+  background: var(--oscuro);
+  padding: 5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.newsletter-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+.newsletter-glow {
+  position: absolute;
+  width: 600px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(27,67,50,0.3) 0%, transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.newsletter-inner .section-title { color: var(--blanco); margin-bottom: 1rem; }
+.newsletter-inner p {
+  color: rgba(232,245,233,0.65);
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+.newsletter-form {
+  display: flex;
+  gap: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1px solid rgba(232,93,4,0.3);
+  background: rgba(255,255,255,0.04);
+}
+.newsletter-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 1rem 1.5rem;
+  color: var(--blanco);
+  font-family: var(--font-cuerpo);
+  font-size: 0.9rem;
+  outline: none;
+}
+.newsletter-form input::placeholder { color: rgba(232,245,233,0.4); }
+.newsletter-form button {
+  background: var(--naranja);
+  color: var(--blanco);
+  border: none;
+  padding: 1rem 1.8rem;
+  font-family: var(--font-titulo);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transicion);
+}
+.newsletter-form button:hover { background: var(--naranja-claro); }
+.newsletter-nota {
+  font-size: 0.75rem;
+  color: rgba(232,245,233,0.35);
+  margin-top: 1rem;
+}
+
+/* ===================================
+   FOOTER
+=================================== */
+footer {
+  background: #080C10;
+  border-top: 1px solid var(--gris-borde);
+  padding: 4rem 2rem 2rem;
+}
+.footer-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+.footer-brand { }
+.footer-brand .nav-logo { margin-bottom: 1rem; font-size: 1.25rem; }
+.footer-brand p {
+  color: rgba(232,245,233,0.45);
+  font-size: 0.875rem;
+  line-height: 1.7;
+  max-width: 280px;
+  margin-bottom: 1.5rem;
+}
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+}
+.social-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gris-borde);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transicion);
+  color: rgba(232,245,233,0.5);
+}
+.social-btn:hover {
+  border-color: var(--naranja);
+  color: var(--naranja);
+  transform: translateY(-3px);
+}
+.social-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+.footer-col h4 {
+  font-family: var(--font-titulo);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blanco);
+  margin-bottom: 1.25rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 0.6rem; }
+.footer-col ul a {
+  font-size: 0.875rem;
+  color: rgba(232,245,233,0.45);
+  transition: color var(--transicion);
+}
+.footer-col ul a:hover { color: var(--naranja-claro); }
+
+.footer-bottom {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  border-top: 1px solid var(--gris-borde);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-bottom p { font-size: 0.8rem; color: rgba(232,245,233,0.3); }
+.footer-bottom a { color: var(--naranja); }
+
+/* ===================================
+   ANIMACIONES DE SCROLL
+=================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===================================
+   MOBILE MENU
+=================================== */
+.nav-mobile {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(13,17,23,0.97);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.nav-mobile.open { display: flex; }
+.nav-mobile a {
+  font-family: var(--font-titulo);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--blanco);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  transition: color var(--transicion);
+}
+.nav-mobile a:hover { color: var(--naranja); }
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 1024px) {
+  .pilares-grid { grid-template-columns: repeat(2, 1fr); }
+  .rutas-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .ruta-card.featured { grid-row: span 1; grid-column: span 2; }
+  .stats-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .guias-grid { grid-template-columns: 1fr 1fr; }
+  .guia-card.featured { grid-column: span 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .deporte-panel { grid-template-columns: 1fr; }
+  .deporte-panel-img img { min-height: 250px; }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .pilares-grid { grid-template-columns: 1fr; }
+  .rutas-grid { grid-template-columns: 1fr; }
+  .ruta-card.featured { grid-column: span 1; }
+  .hero-stats { gap: 1.5rem; }
+  .hero-stat-num { font-size: 1.4rem; }
+  .section-stats { clip-path: none; margin: 0; }
+  .guias-grid { grid-template-columns: 1fr; }
+  .guia-card.featured { grid-column: span 1; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .hero-stats { flex-direction: column; align-items: center; gap: 1rem; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .newsletter-form { flex-direction: column; border-radius: var(--radio); }
+  .newsletter-form button { border-radius: 0 0 var(--radio) var(--radio); }
+}
+</style>
+</head>
+<body>
+
+<!-- Cursor personalizado -->
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <!-- Icono montaña SVG inline -->
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/>
+    </svg>
+    Trail<span>Vida</span>
+  </a>
+  
+  <ul class="nav-links">
+    <li><a href="rutas.html">Rutas</a></li>
+    <li><a href="deportes.html">Deportes</a></li>
+    <li><a href="guias.html">Guías</a></li>
+    <li><a href="comunidad.html">Comunidad</a></li>
+    <li><a href="comunidad.html" class="nav-cta">Únete</a></li>
+  </ul>
+  
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Menú móvil -->
+<div class="nav-mobile" id="navMobile">
+  <a href="rutas.html">Rutas</a>
+  <a href="deportes.html">Deportes</a>
+  <a href="guias.html">Guías</a>
+  <a href="comunidad.html">Comunidad</a>
+  <a href="comunidad.html" style="color: var(--naranja);">Únete</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="hero" aria-label="Sección principal">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span>Actividad Outdoor en España</span>
+    </div>
+    
+    <h1 class="hero-title">
+      Muévete.
+      <em id="typewriter">Explora.</em>
+    </h1>
+    
+    <p class="hero-tagline">
+      Más de 3.000 rutas de senderismo, trail running, ciclismo de montaña y deportes acuáticos en los mejores paisajes de España. Tu vida empieza fuera.
+    </p>
+    
+    <div class="hero-actions">
+      <a href="rutas.html" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M13 6l6 6-6 6"/></svg>
+        Explorar Rutas
+      </a>
+      <a href="comunidad.html" class="btn-secondary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>
+        Ver Comunidad
+      </a>
+    </div>
+  </div>
+  
+  <div class="hero-stats">
+    <div class="hero-stat-item">
+      <span class="hero-stat-num"><span class="counter" data-target="3240">0</span><span>+</span></span>
+      <span class="hero-stat-label">Rutas indexadas</span>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-num"><span class="counter" data-target="17">0</span></span>
+      <span class="hero-stat-label">Comunidades autónomas</span>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-num"><span class="counter" data-target="84000">0</span><span>+</span></span>
+      <span class="hero-stat-label">Miembros activos</span>
+    </div>
+  </div>
+  
+  <div class="scroll-indicator" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="section-pilares" aria-labelledby="pilares-titulo">
+  <div class="pilar-diagonal" aria-hidden="true"></div>
+  <div class="container">
+    <span class="section-label reveal">Lo que encontrarás</span>
+    <h2 class="section-title reveal reveal-delay-1" id="pilares-titulo">
+      Todo lo que necesitas<br>para salir al monte
+    </h2>
+    
+    <div class="pilares-grid">
+      <!-- Pilar 1: Rutas -->
+      <article class="pilar-card reveal reveal-delay-1">
+        <span class="pilar-num" aria-hidden="true">01</span>
+        <div class="pilar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2">
+            <path d="M3 17l6-10 4 6 3-4 5 8H3z" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="20" cy="5" r="2"/>
+          </svg>
+        </div>
+        <h3>Rutas Detalladas</h3>
+        <p>Más de 3.000 rutas verificadas con tracks GPX descargables, mapas topográficos, perfil de desnivel y puntos de interés marcados.</p>
+        <a href="rutas.html" class="pilar-link" aria-label="Ver todas las rutas de senderismo">
+          Ver rutas
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      
+      <!-- Pilar 2: Deportes -->
+      <article class="pilar-card reveal reveal-delay-2">
+        <span class="pilar-num" aria-hidden="true">02</span>
+        <div class="pilar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Deportes Outdoor</h3>
+        <p>Senderismo, trail running, ciclismo de montaña, escalada, kayak, esquí y mucho más. Guías de equipamiento y zonas recomendadas por expertos.</p>
+        <a href="deportes.html" class="pilar-link" aria-label="Explorar deportes outdoor">
+          Explorar deportes
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+      
+      <!-- Pilar 3: Comunidad -->
+      <article class="pilar-card reveal reveal-delay-3">
+        <span class="pilar-num" aria-hidden="true">03</span>
+        <div class="pilar-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" stroke-width="2">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Comunidad Activa</h3>
+        <p>Conecta con más de 84.000 senderistas, runners y ciclistas de montaña. Comparte experiencias, organiza quedadas y descubre nuevos compañeros de aventura.</p>
+        <a href="comunidad.html" class="pilar-link" aria-label="Unirse a la comunidad TrailVida">
+          Unirse
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- RUTAS DESTACADAS -->
+<section class="section-rutas" aria-labelledby="rutas-titulo">
+  <div class="container">
+    <div class="section-rutas-header">
+      <div>
+        <span class="section-label reveal">Rutas populares</span>
+        <h2 class="section-title section-title-light reveal reveal-delay-1" id="rutas-titulo">Las Rutas que No Puedes<br>Perderte Este Año</h2>
+      </div>
+      <a href="rutas.html" class="ver-todas reveal">
+        Ver todas
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    
+    <div class="rutas-grid" role="list">
+      <!-- RUTA DESTACADA: Ruta del Cares -->
+      <article class="ruta-card featured reveal" role="listitem">
+        <img 
+          src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80" 
+          alt="Desfiladero de la Garganta del Cares en Picos de Europa, Asturias" 
+          loading="lazy"
+        >
+        <span class="ruta-badge badge-moderado">Moderado</span>
+        <div class="ruta-overlay">
+          <p class="ruta-ca">Asturias / Castilla y León</p>
+          <h3>Ruta del Cares — Picos de Europa</h3>
+          <div class="ruta-meta">
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linecap="round"/></svg>
+              21 km
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              +1.200 m
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14" stroke-linecap="round"/></svg>
+              6-7 h
+            </span>
+          </div>
+          <div class="ruta-estrellas" aria-label="Valoración 4.9 de 5">★★★★★ <span style="color: rgba(232,245,233,0.5); font-size: 0.8rem;">4.9 (1.847 reseñas)</span></div>
+        </div>
+        <span class="ruta-btn-hover" aria-hidden="true">Ver Ruta →</span>
+      </article>
+      
+      <!-- Camino del Rey -->
+      <article class="ruta-card reveal reveal-delay-1" role="listitem">
+        <img 
+          src="https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=600&q=80" 
+          alt="Pasarelas del Camino del Rey en el Desfiladero de los Gaitanes, Málaga" 
+          loading="lazy"
+        >
+        <span class="ruta-badge badge-dificil">Difícil</span>
+        <div class="ruta-overlay">
+          <p class="ruta-ca">Andalucía</p>
+          <h3>Camino del Rey</h3>
+          <div class="ruta-meta">
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linecap="round"/></svg>
+              7,7 km
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              +400 m
+            </span>
+          </div>
+          <div class="ruta-estrellas" aria-label="Valoración 4.8 de 5">★★★★★ <span style="color: rgba(232,245,233,0.5); font-size: 0.8rem;">4.8</span></div>
+        </div>
+        <span class="ruta-btn-hover" aria-hidden="true">Ver Ruta →</span>
+      </article>
+      
+      <!-- Montserrat -->
+      <article class="ruta-card reveal reveal-delay-2" role="listitem">
+        <img 
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" 
+          alt="Montaña de Montserrat con sus características agujas de roca en Cataluña" 
+          loading="lazy"
+        >
+        <span class="ruta-badge badge-moderado">Moderado</span>
+        <div class="ruta-overlay">
+          <p class="ruta-ca">Cataluña</p>
+          <h3>Sant Joan — Montserrat</h3>
+          <div class="ruta-meta">
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linecap="round"/></svg>
+              12 km
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              +650 m
+            </span>
+          </div>
+          <div class="ruta-estrellas" aria-label="Valoración 4.7 de 5">★★★★☆ <span style="color: rgba(232,245,233,0.5); font-size: 0.8rem;">4.7</span></div>
+        </div>
+        <span class="ruta-btn-hover" aria-hidden="true">Ver Ruta →</span>
+      </article>
+      
+      <!-- GR-11 -->
+      <article class="ruta-card reveal reveal-delay-1" role="listitem">
+        <img 
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" 
+          alt="Paisaje pirenaico de alta montaña en el recorrido del GR-11 atravesando el Pirineo español" 
+          loading="lazy"
+        >
+        <span class="ruta-badge badge-dificil">Difícil</span>
+        <div class="ruta-overlay">
+          <p class="ruta-ca">Aragón / Navarra / Cataluña</p>
+          <h3>GR-11 — Travesía Pirenaica</h3>
+          <div class="ruta-meta">
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linecap="round"/></svg>
+              840 km
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14" stroke-linecap="round"/></svg>
+              40-50 días
+            </span>
+          </div>
+          <div class="ruta-estrellas" aria-label="Valoración 5 de 5">★★★★★ <span style="color: rgba(232,245,233,0.5); font-size: 0.8rem;">5.0</span></div>
+        </div>
+        <span class="ruta-btn-hover" aria-hidden="true">Ver Ruta →</span>
+      </article>
+      
+      <!-- Sierra Nevada -->
+      <article class="ruta-card reveal reveal-delay-2" role="listitem">
+        <img 
+          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=80" 
+          alt="Mulhacén nevado en Sierra Nevada, pico más alto de la península ibérica" 
+          loading="lazy"
+        >
+        <span class="ruta-badge badge-dificil">Difícil</span>
+        <div class="ruta-overlay">
+          <p class="ruta-ca">Andalucía</p>
+          <h3>Mulhacén — Sierra Nevada</h3>
+          <div class="ruta-meta">
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linecap="round"/></svg>
+              18 km
+            </span>
+            <span class="ruta-meta-item">
+              <svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              +1.600 m
+            </span>
+          </div>
+          <div class="ruta-estrellas" aria-label="Valoración 4.9 de 5">★★★★★ <span style="color: rgba(232,245,233,0.5); font-size: 0.8rem;">4.9</span></div>
+        </div>
+        <span class="ruta-btn-hover" aria-hidden="true">Ver Ruta →</span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ESTADÍSTICAS -->
+<section class="section-stats" aria-labelledby="stats-titulo">
+  <div class="stats-inner">
+    <div class="stats-left">
+      <span class="section-label">Por qué salir al aire libre</span>
+      <h2 class="section-title" id="stats-titulo">El Deporte Outdoor<br>Transforma tu Vida</h2>
+      <p>
+        La ciencia lo confirma: practicar ejercicio en la naturaleza reduce el estrés hasta un 60% más que el entrenamiento en gimnasio, mejora la concentración y aumenta la longevidad. España tiene el privilegio de contar con algunos de los entornos naturales más espectaculares de Europa.
+      </p>
+      <a href="guias.html" class="btn-primary">Leer Guías de Bienestar</a>
+    </div>
+    
+    <div class="stats-grid">
+      <div class="stat-box reveal">
+        <div class="stat-num">
+          <span class="counter" data-target="60">0</span>
+          <span class="unit">%</span>
+        </div>
+        <p class="stat-label">Menos estrés que hacer ejercicio en interior</p>
+      </div>
+      <div class="stat-box reveal reveal-delay-1">
+        <div class="stat-num">
+          <span class="counter" data-target="11">0</span>
+          <span class="unit">M</span>
+        </div>
+        <p class="stat-label">Españoles practican senderismo regularmente</p>
+      </div>
+      <div class="stat-box reveal reveal-delay-2">
+        <div class="stat-num">
+          <span class="counter" data-target="35">0</span>
+          <span class="unit">%</span>
+        </div>
+        <p class="stat-label">Aumento de practicantes de trail running desde 2019</p>
+      </div>
+      <div class="stat-box reveal reveal-delay-3">
+        <div class="stat-num">
+          <span class="counter" data-target="17">0</span>
+          <span class="unit">%</span>
+        </div>
+        <p class="stat-label">Mayor esperanza de vida en activos al aire libre</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPORTES -->
+<section class="section-deportes" aria-labelledby="deportes-titulo">
+  <div class="container">
+    <div class="deportes-intro">
+      <span class="section-label reveal">Encuentra tu disciplina</span>
+      <h2 class="section-title reveal reveal-delay-1" id="deportes-titulo">¿Qué Deporte<br>Es el Tuyo?</h2>
+      <p class="reveal reveal-delay-2">Desde senderismo familiar hasta escalada de alta dificultad. Cada deporte tiene su ritmo, su paisaje y su comunidad.</p>
+    </div>
+    
+    <!-- Pills de deportes -->
+    <div class="deportes-slider-wrap" role="tablist" aria-label="Seleccionar deporte">
+      <div class="deportes-track">
+        <button class="deporte-pill active" data-deporte="senderismo" role="tab" aria-selected="true" aria-controls="panel-senderismo">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 4c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM5.5 21l2-8-2-4h8l-2 4 2 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Senderismo</span>
+        </button>
+        <button class="deporte-pill" data-deporte="trail" role="tab" aria-selected="false" aria-controls="panel-trail">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M13 4c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zM5 21l3-9 2 3 4-9 2 9-4-1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Trail Running</span>
+        </button>
+        <button class="deporte-pill" data-deporte="ciclismo" role="tab" aria-selected="false" aria-controls="panel-ciclismo">
+          <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M14 4l-3 8H7l-2 5M14 4h2l3 8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Ciclismo MTB</span>
+        </button>
+        <button class="deporte-pill" data-deporte="escalada" role="tab" aria-selected="false" aria-controls="panel-escalada">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 17l5-10 4 6 3-5 6 9H3z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Escalada</span>
+        </button>
+        <button class="deporte-pill" data-deporte="kayak" role="tab" aria-selected="false" aria-controls="panel-kayak">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M2 12h20M7 6l-4 6 4 6M17 6l4 6-4 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Kayak</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Showcase panels -->
+    <div class="deportes-showcase reveal">
+      <!-- Senderismo -->
+      <div class="deporte-panel active" id="panel-senderismo" role="tabpanel">
+        <div class="deporte-panel-img">
+          <img 
+            src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80" 
+            alt="Senderistas caminando por una ruta de montaña en España rodeados de naturaleza" 
+            loading="lazy"
+          >
+        </div>
+        <div class="deporte-panel-info">
+          <span class="section-label">Deporte nacional</span>
+          <h3>Senderismo</h3>
+          <p>El deporte rey en España. Con una red de más de 100.000 km de senderos señalizados, desde paseos por la costa hasta travesías de alta montaña. Apto para todos los niveles y edades.</p>
+          <div class="deporte-tags">
+            <span class="tag">Todos los niveles</span>
+            <span class="tag">Familiar</span>
+            <span class="tag">4 estaciones</span>
+          </div>
+          <a href="deportes.html#senderismo" class="btn-primary">Descubrir Rutas de Senderismo</a>
+        </div>
+      </div>
+      
+      <!-- Trail Running -->
+      <div class="deporte-panel" id="panel-trail" role="tabpanel">
+        <div class="deporte-panel-img">
+          <img 
+            src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80" 
+            alt="Runner de trail corriendo por sendero de montaña en España al atardecer" 
+            loading="lazy"
+          >
+        </div>
+        <div class="deporte-panel-info">
+          <span class="section-label">En auge</span>
+          <h3>Trail Running</h3>
+          <p>El trail running ha crecido un 35% en España desde 2019. Más de 1.200 carreras anuales en territorio nacional, desde 5 km populares hasta la Zegama-Aizkorri de élite mundial.</p>
+          <div class="deporte-tags">
+            <span class="tag">Nivel medio-alto</span>
+            <span class="tag">Competición</span>
+            <span class="tag">Comunidad fuerte</span>
+          </div>
+          <a href="deportes.html#trail" class="btn-primary">Empezar en Trail Running</a>
+        </div>
+      </div>
+      
+      <!-- MTB -->
+      <div class="deporte-panel" id="panel-ciclismo" role="tabpanel">
+        <div class="deporte-panel-img">
+          <img 
+            src="https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=800&q=80" 
+            alt="Ciclista de montaña descendiendo por una pista single track en el bosque" 
+            loading="lazy"
+          >
+        </div>
+        <div class="deporte-panel-info">
+          <span class="section-label">Adrenalina pura</span>
+          <h3>Ciclismo de Montaña</h3>
+          <p>Descensos técnicos, enduro y rutas XC por los mejores singletracks de España. Desde los pinos de la Sierra de Guadarrama hasta los pinares sorianos. Paisaje a 30 km/h.</p>
+          <div class="deporte-tags">
+            <span class="tag">Medio-alto</span>
+            <span class="tag">Adrenalina</span>
+            <span class="tag">Equipamiento clave</span>
+          </div>
+          <a href="deportes.html#mtb" class="btn-primary">Rutas MTB en España</a>
+        </div>
+      </div>
+      
+      <!-- Escalada -->
+      <div class="deporte-panel" id="panel-escalada" role="tabpanel">
+        <div class="deporte-panel-img">
+          <img 
+            src="https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80" 
+            alt="Escalador en roca con vistas panorámicas a un valle en España" 
+            loading="lazy"
+          >
+        </div>
+        <div class="deporte-panel-info">
+          <span class="section-label">Vertical</span>
+          <h3>Escalada en Roca</h3>
+          <p>España tiene algunos de los mejores sectores de escalada de Europa. Siurana, Chulilla, Rodellar o El Chorro concentran escaladores de todo el mundo por su calidad de roca y clima benigno.</p>
+          <div class="deporte-tags">
+            <span class="tag">Técnico</span>
+            <span class="tag">Clase mundial</span>
+            <span class="tag">Todo el año</span>
+          </div>
+          <a href="deportes.html#escalada" class="btn-primary">Sectores de Escalada</a>
+        </div>
+      </div>
+      
+      <!-- Kayak -->
+      <div class="deporte-panel" id="panel-kayak" role="tabpanel">
+        <div class="deporte-panel-img">
+          <img 
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" 
+            alt="Kayakistas en aguas tranquilas de un lago de montaña en España" 
+            loading="lazy"
+          >
+        </div>
+        <div class="deporte-panel-info">
+          <span class="section-label">Agua y aventura</span>
+          <h3>Kayak y Piragüismo</h3>
+          <p>Desde los ríos pirenaicos hasta la costa gallega, pasando por los embalses de Castilla. España ofrece escenarios únicos para el kayak de aguas bravas, travesías en mar y turismo fluvial.</p>
+          <div class="deporte-tags">
+            <span class="tag">Todos los niveles</span>
+            <span class="tag">Costas y ríos</span>
+            <span class="tag">Verano ideal</span>
+          </div>
+          <a href="deportes.html#kayak" class="btn-primary">Rutas en Kayak</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUÍAS RECIENTES -->
+<section class="section-guias" aria-labelledby="guias-titulo">
+  <div class="container">
+    <div class="guias-header">
+      <div>
+        <span class="section-label reveal">Aprende y mejora</span>
+        <h2 class="section-title section-title-light reveal reveal-delay-1" id="guias-titulo">Guías y Consejos<br>de Expertos</h2>
+      </div>
+      <a href="guias.html" class="ver-todas reveal">
+        Ver todas las guías
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    
+    <div class="guias-grid">
+      <!-- Guía destacada -->
+      <article class="guia-card featured reveal" aria-label="Artículo destacado">
+        <div class="guia-card-img">
+          <img 
+            src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=800&q=80" 
+            alt="Mochilero con equipo completo preparándose para una ruta de varios días en alta montaña" 
+            loading="lazy"
+          >
+        </div>
+        <div class="guia-card-body">
+          <span class="guia-cat">Equipamiento</span>
+          <h3>La Mochila Perfecta para Alta Montaña: Guía Completa 2025</h3>
+          <p>Todo lo que necesitas saber para elegir tu mochila de montaña. Desde el volumen adecuado según el tipo de ruta hasta los sistemas de hidratación integrados. Analizamos las mejores opciones del mercado con precio, peso y funcionalidades.</p>
+          <div class="guia-meta">
+            <span>12 min de lectura</span>
+            <span class="guia-meta-sep">·</span>
+            <span>Actualizado: mayo 2025</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Guía 2 -->
+      <article class="guia-card reveal reveal-delay-1">
+        <div class="guia-card-img">
+          <img 
+            src="https://images.unsplash.com/photo-1542401886-65d6c61db217?w=600&q=80" 
+            alt="Alimentos energéticos para deportes de montaña: geles, barritas y frutos secos" 
+            loading="lazy"
+          >
+        </div>
+        <div class="guia-card-body">
+          <span class="guia-cat">Nutrición</span>
+          <h3>Qué Comer Antes, Durante y Después de una Ruta de Montaña</h3>
+          <p>La nutrición es el 30% del rendimiento en montaña. Descubre qué alimentos llevar según la duración y dificultad de tu ruta.</p>
+          <div class="guia-meta">
+            <span>8 min de lectura</span>
+          </div>
+        </div>
+      </article>
+      
+      <!-- Guía 3 -->
+      <article class="guia-card reveal reveal-delay-2">
+        <div class="guia-card-img">
+          <img 
+            src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=80" 
+            alt="Brújula y mapa topográfico sobre roca en una ruta de montaña" 
+            loading="lazy"
+          >
+        </div>
+        <div class="guia-card-body">
+          <span class="guia-cat">Seguridad</span>
+          <h3>Orientación sin GPS: Aprende a Leer un Mapa Topográfico</h3>
+          <p>El GPS falla. Las pilas se agotan. Saber orientarte con mapa y brújula puede salvarte la vida. Guía práctica con ejercicios.</p>
+          <div class="guia-meta">
+            <span>10 min de lectura</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section-newsletter" aria-labelledby="newsletter-titulo">
+  <div class="newsletter-glow" aria-hidden="true"></div>
+  <div class="newsletter-inner reveal">
+    <span class="section-label">Comunidad TrailVida</span>
+    <h2 class="section-title section-title-light" id="newsletter-titulo">Rutas, Consejos y<br>Novedades cada Semana</h2>
+    <p>Únete a 84.000 apasionados del outdoor. Sin spam. Solo contenido que te ayuda a moverte más.</p>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)" novalidate>
+      <label for="email-newsletter" class="sr-only">Tu correo electrónico</label>
+      <input type="email" id="email-newsletter" name="email" placeholder="tu@correo.es" required autocomplete="email">
+      <button type="submit">Suscribirme</button>
+    </form>
+    <p class="newsletter-nota">Sin spam. Cancelación en 1 clic. Privacidad garantizada.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="28" height="28">
+          <path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/>
+        </svg>
+        Trail<span>Vida</span>
+      </a>
+      <p>Tu guía de referencia para la actividad física al aire libre en España. Rutas, deportes, comunidad y bienestar en la naturaleza.</p>
+      <div class="footer-social">
+        <!-- Instagram -->
+        <a href="#" class="social-btn" aria-label="TrailVida en Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <!-- YouTube -->
+        <a href="#" class="social-btn" aria-label="TrailVida en YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </a>
+        <!-- Strava -->
+        <a href="#" class="social-btn" aria-label="TrailVida en Strava">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+        </a>
+      </div>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Explorar</h4>
+      <ul>
+        <li><a href="rutas.html">Rutas de Senderismo</a></li>
+        <li><a href="rutas.html?tipo=trail">Trail Running</a></li>
+        <li><a href="rutas.html?tipo=mtb">Ciclismo MTB</a></li>
+        <li><a href="rutas.html?tipo=escalada">Escalada</a></li>
+        <li><a href="rutas.html?tipo=kayak">Kayak</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h4>Contenido</h4>
+      <ul>
+        <li><a href="guias.html">Guías y Consejos</a></li>
+        <li><a href="guias.html?cat=equipamiento">Equipamiento</a></li>
+        <li><a href="guias.html?cat=nutricion">Nutrición Deportiva</a></li>
+        <li><a href="guias.html?cat=seguridad">Seguridad en Montaña</a></li>
+        <li><a href="guias.html?cat=meteorologia">Meteorología</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-col">
+      <h4>TrailVida</h4>
+      <ul>
+        <li><a href="comunidad.html">Comunidad</a></li>
+        <li><a href="#">Sobre nosotros</a></li>
+        <li><a href="#">Colabora con nosotros</a></li>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2025 TrailVida. Todos los derechos reservados. Hecho con ❤️ por senderistas, para senderistas.</p>
+    <p>España · <a href="#">Privacidad</a> · <a href="#">Cookies</a></p>
+  </div>
+</footer>
+
+<!-- Texto para lectores de pantalla -->
+<span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">
+  TrailVida — Guía de actividad física outdoor en España. Rutas de senderismo, trail running, ciclismo de montaña y turismo activo.
+</span>
+
+<script>
+// ===================================
+// CURSOR PERSONALIZADO
+// ===================================
+const dot = document.getElementById('cursorDot');
+
+document.addEventListener('mousemove', (e) => {
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('a, button, .pilar-card, .ruta-card, .guia-card, .deporte-pill').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// ===================================
+// NAVBAR — transparente → sólida
+// ===================================
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ===================================
+// HAMBURGER MENÚ MÓVIL
+// ===================================
+const hamburger = document.getElementById('hamburger');
+const navMobile = document.getElementById('navMobile');
+
+hamburger.addEventListener('click', () => {
+  const isOpen = hamburger.classList.toggle('active');
+  navMobile.classList.toggle('open', isOpen);
+  hamburger.setAttribute('aria-expanded', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+
+navMobile.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navMobile.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ===================================
+// PARALLAX HERO
+// ===================================
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  if (scrolled < window.innerHeight) {
+    heroBg.style.transform = `scale(1.1) translateY(${scrolled * 0.15}px)`;
+  }
+}, { passive: true });
+
+// ===================================
+// SCROLL REVEAL (IntersectionObserver)
+// ===================================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ===================================
+// CONTADORES ANIMADOS
+// ===================================
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const duration = 1800;
+  const start = performance.now();
+  
+  function update(currentTime) {
+    const elapsed = currentTime - start;
+    const progress = Math.min(elapsed / duration, 1);
+    // Easing out
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = Math.floor(eased * target);
+    
+    if (target >= 10000) {
+      el.textContent = current.toLocaleString('es-ES');
+    } else {
+      el.textContent = current;
+    }
+    
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target >= 10000 ? target.toLocaleString('es-ES') : target;
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounter(entry.target);
+      counterObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+// ===================================
+// DEPORTES TABS
+// ===================================
+const pills = document.querySelectorAll('.deporte-pill');
+const panels = document.querySelectorAll('.deporte-panel');
+
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const target = pill.dataset.deporte;
+    
+    pills.forEach(p => {
+      p.classList.remove('active');
+      p.setAttribute('aria-selected', 'false');
+    });
+    panels.forEach(p => p.classList.remove('active'));
+    
+    pill.classList.add('active');
+    pill.setAttribute('aria-selected', 'true');
+    const panel = document.getElementById('panel-' + target);
+    if (panel) panel.classList.add('active');
+  });
+});
+
+// ===================================
+// NEWSLETTER FORM
+// ===================================
+function handleNewsletter(e) {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const btn = e.target.querySelector('button');
+  
+  if (!input.value || !input.value.includes('@')) {
+    input.style.borderColor = '#E85D04';
+    input.focus();
+    return;
+  }
+  
+  btn.textContent = '¡Apuntado!';
+  btn.style.background = '#2D6A4F';
+  input.value = '';
+  
+  setTimeout(() => {
+    btn.textContent = 'Suscribirme';
+    btn.style.background = '';
+  }, 3500);
+}
+
+// ===================================
+// TYPEWRITER en el hero
+// ===================================
+const typeEl = document.getElementById('typewriter');
+const words = ['Explora.', 'Vive.', 'Desafíate.', 'Conecta.'];
+let wi = 0, ci = 0, deleting = false;
+
+function typewriter() {
+  const word = words[wi];
+  if (!deleting) {
+    typeEl.textContent = word.substring(0, ci + 1);
+    ci++;
+    if (ci === word.length) {
+      deleting = true;
+      setTimeout(typewriter, 1800);
+      return;
+    }
+  } else {
+    typeEl.textContent = word.substring(0, ci - 1);
+    ci--;
+    if (ci === 0) {
+      deleting = false;
+      wi = (wi + 1) % words.length;
+    }
+  }
+  setTimeout(typewriter, deleting ? 60 : 100);
+}
+setTimeout(typewriter, 1200);
+
+// ===================================
+// PAGE FADE OUT en navegación
+// ===================================
+document.querySelectorAll('a[href$=".html"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http')) return;
+    e.preventDefault();
+    document.body.style.transition = 'opacity 0.3s ease';
+    document.body.style.opacity = '0';
+    setTimeout(() => { window.location.href = href; }, 300);
+  });
+});
+
+// Fade in al cargar
+document.body.style.opacity = '0';
+document.body.style.transition = 'opacity 0.4s ease';
+window.addEventListener('load', () => {
+  document.body.style.opacity = '1';
+});
+</script>
+
+</body>
+</html>

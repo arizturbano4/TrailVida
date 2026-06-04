@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutas de Senderismo en España — TrailVida</title>
+<meta name="description" content="Descubre más de 3.000 rutas de senderismo, trail running y ciclismo de montaña en España. Filtra por comunidad autónoma, dificultad y duración.">
+<meta property="og:title" content="Rutas Outdoor en España — TrailVida">
+<meta property="og:image" content="https://images.unsplash.com/photo-1551632811-561732d1e306?w=1200">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --verde:#1B4332;--verde-medio:#2D6A4F;--verde-claro:#52B788;
+  --naranja:#E85D04;--naranja-claro:#F48C06;
+  --oscuro:#0D1117;--oscuro-medio:#161B22;
+  --claro:#F8F9FA;--blanco:#ffffff;
+  --texto:#E8F5E9;--gris:#6B7280;--gris-borde:rgba(255,255,255,0.1);
+  --font-t:'Montserrat',sans-serif;--font-b:'Inter',sans-serif;
+  --trans:300ms cubic-bezier(.4,0,.2,1);--radio:12px;--radio-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-b);background:var(--oscuro);color:var(--texto);line-height:1.6;overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+.cursor-dot{width:8px;height:8px;background:var(--naranja);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+body.ch .cursor-dot{width:12px;height:12px;background:var(--naranja-claro)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+.navbar.scrolled{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--gris-borde);padding:1rem 2rem}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--font-t);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;color:#fff}
+.nav-logo span{color:var(--naranja)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(232,245,233,.75);position:relative;transition:color var(--trans)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--naranja);transition:width var(--trans)}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--naranja);color:#fff!important;padding:.6rem 1.4rem;border-radius:50px;font-weight:600;font-size:.875rem;transition:transform var(--trans),box-shadow var(--trans)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,4,.4)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s ease;display:block}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{display:none;position:fixed;inset:0;background:rgba(13,17,23,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-family:var(--font-t);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;text-transform:uppercase;transition:color var(--trans)}
+.nav-mobile a:hover{color:var(--naranja)}
+
+/* PAGE HERO */
+.page-hero{padding:9rem 2rem 4rem;background:var(--oscuro-medio);position:relative;overflow:hidden;border-bottom:1px solid var(--gris-borde)}
+.page-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&q=60') center/cover;opacity:.12}
+.page-hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,245,233,.45);margin-bottom:1rem}
+.breadcrumb a{color:rgba(232,245,233,.45);transition:color var(--trans)}
+.breadcrumb a:hover{color:var(--naranja)}
+.breadcrumb span{color:rgba(232,245,233,.25)}
+.page-hero h1{font-family:var(--font-t);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.page-hero h1 em{font-style:normal;color:var(--naranja)}
+.page-hero p{color:rgba(232,245,233,.65);max-width:560px;font-size:1rem;line-height:1.8}
+.page-hero-meta{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.meta-pill{background:rgba(255,255,255,.05);border:1px solid var(--gris-borde);border-radius:50px;padding:.4rem 1rem;font-size:.8rem;color:rgba(232,245,233,.6);display:flex;align-items:center;gap:.4rem}
+.meta-pill svg{width:14px;height:14px;stroke:var(--naranja);fill:none}
+
+/* LAYOUT PRINCIPAL */
+.page-body{max-width:1240px;margin:0 auto;padding:3rem 2rem;display:grid;grid-template-columns:280px 1fr;gap:3rem;align-items:start}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:90px;background:var(--oscuro-medio);border:1px solid var(--gris-borde);border-radius:var(--radio-lg);padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem}
+.sidebar-section h3{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(232,245,233,.4);margin-bottom:.75rem}
+.search-box{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.05);border:1px solid var(--gris-borde);border-radius:50px;padding:.6rem 1rem;transition:border-color var(--trans)}
+.search-box:focus-within{border-color:rgba(232,93,4,.4)}
+.search-box svg{width:16px;height:16px;stroke:rgba(232,245,233,.4);fill:none;flex-shrink:0}
+.search-box input{background:transparent;border:none;outline:none;color:var(--texto);font-family:var(--font-b);font-size:.875rem;width:100%}
+.search-box input::placeholder{color:rgba(232,245,233,.3)}
+.filter-chips{display:flex;flex-direction:column;gap:.4rem}
+.chip{background:transparent;border:1px solid var(--gris-borde);border-radius:8px;padding:.5rem .75rem;font-size:.83rem;color:rgba(232,245,233,.6);cursor:pointer;transition:all var(--trans);text-align:left;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-b)}
+.chip:hover{border-color:rgba(232,93,4,.35);color:var(--texto)}
+.chip.active{background:rgba(232,93,4,.15);border-color:rgba(232,93,4,.5);color:var(--naranja-claro)}
+.chip-count{font-size:.72rem;background:rgba(255,255,255,.07);padding:.15rem .4rem;border-radius:4px;color:rgba(232,245,233,.4)}
+.chip.active .chip-count{background:rgba(232,93,4,.2);color:var(--naranja)}
+.sidebar-divider{height:1px;background:var(--gris-borde)}
+.btn-reset{width:100%;background:transparent;border:1px solid var(--gris-borde);border-radius:8px;padding:.6rem;font-family:var(--font-b);font-size:.83rem;color:rgba(232,245,233,.4);cursor:pointer;transition:all var(--trans)}
+.btn-reset:hover{border-color:rgba(232,93,4,.3);color:var(--naranja)}
+
+/* RUTAS GRID */
+.rutas-main{}
+.rutas-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:1rem}
+.rutas-count{font-size:.875rem;color:rgba(232,245,233,.5)}
+.rutas-count strong{color:var(--texto)}
+.sort-select{background:var(--oscuro-medio);border:1px solid var(--gris-borde);border-radius:8px;padding:.5rem 1rem;color:var(--texto);font-family:var(--font-b);font-size:.83rem;cursor:pointer;outline:none;transition:border-color var(--trans)}
+.sort-select:focus{border-color:rgba(232,93,4,.4)}
+
+.rutas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+
+.ruta-card{background:var(--oscuro-medio);border:1px solid var(--gris-borde);border-radius:var(--radio-lg);overflow:hidden;transition:transform var(--trans),box-shadow var(--trans),border-color var(--trans);cursor:pointer;display:flex;flex-direction:column}
+.ruta-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,.35);border-color:rgba(232,93,4,.2)}
+.ruta-img-wrap{position:relative;aspect-ratio:16/9;overflow:hidden}
+.ruta-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.ruta-card:hover .ruta-img-wrap img{transform:scale(1.07)}
+.ruta-badge{position:absolute;top:.75rem;left:.75rem;padding:.28rem .7rem;border-radius:50px;font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.badge-facil{background:rgba(82,183,136,.22);color:#52B788;border:1px solid rgba(82,183,136,.38)}
+.badge-moderado{background:rgba(248,196,113,.18);color:#F8C471;border:1px solid rgba(248,196,113,.32)}
+.badge-dificil{background:rgba(232,93,4,.18);color:#F48C06;border:1px solid rgba(232,93,4,.32)}
+.ruta-fav{position:absolute;top:.75rem;right:.75rem;width:32px;height:32px;background:rgba(13,17,23,.6);backdrop-filter:blur(8px);border-radius:50%;border:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;transition:all var(--trans);cursor:pointer}
+.ruta-fav:hover,.ruta-fav.active{background:rgba(232,93,4,.2);border-color:var(--naranja)}
+.ruta-fav svg{width:14px;height:14px;stroke:rgba(232,245,233,.5);fill:none;transition:all var(--trans)}
+.ruta-fav.active svg{stroke:var(--naranja);fill:rgba(232,93,4,.3)}
+.ruta-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
+.ruta-ca{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,245,233,.4);margin-bottom:.3rem}
+.ruta-body h3{font-family:var(--font-t);font-weight:700;font-size:1rem;color:#fff;margin-bottom:.75rem;line-height:1.35}
+.ruta-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:.9rem}
+.ruta-meta-item{display:flex;align-items:center;gap:.3rem;font-size:.78rem;color:rgba(232,245,233,.55)}
+.ruta-meta-item svg{width:13px;height:13px;stroke:var(--naranja-claro);fill:none}
+.ruta-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.9rem;border-top:1px solid var(--gris-borde)}
+.ruta-stars{color:#F8C471;font-size:.8rem;display:flex;align-items:center;gap:.25rem}
+.ruta-stars span{color:rgba(232,245,233,.4);font-size:.72rem}
+.btn-ver{background:var(--verde);color:#fff;padding:.45rem 1rem;border-radius:50px;font-size:.78rem;font-weight:600;letter-spacing:.04em;transition:all var(--trans);border:1px solid transparent;white-space:nowrap}
+.btn-ver:hover{background:var(--naranja);transform:translateX(2px)}
+
+/* NO RESULTS */
+.no-results{grid-column:1/-1;text-align:center;padding:4rem 2rem;color:rgba(232,245,233,.35)}
+.no-results svg{width:48px;height:48px;stroke:rgba(232,245,233,.15);fill:none;margin:0 auto 1rem}
+.no-results h3{font-family:var(--font-t);font-size:1.2rem;font-weight:700;color:rgba(232,245,233,.4);margin-bottom:.5rem}
+
+/* PAGINACIÓN */
+.pagination{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:3rem;flex-wrap:wrap}
+.page-btn{width:40px;height:40px;border-radius:8px;border:1px solid var(--gris-borde);background:transparent;color:rgba(232,245,233,.6);font-family:var(--font-b);font-size:.875rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all var(--trans)}
+.page-btn:hover{border-color:rgba(232,93,4,.4);color:var(--texto)}
+.page-btn.active{background:var(--naranja);border-color:var(--naranja);color:#fff;font-weight:700}
+.page-btn.arrow svg{width:16px;height:16px;stroke:currentColor;fill:none}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}
+
+/* FOOTER */
+footer{background:#080C10;border-top:1px solid var(--gris-borde);padding:3rem 2rem 1.5rem;margin-top:4rem}
+.footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand .nav-logo{margin-bottom:.75rem;font-size:1.2rem}
+.footer-brand p{color:rgba(232,245,233,.4);font-size:.85rem;line-height:1.7;max-width:260px;margin-bottom:1rem}
+.footer-social{display:flex;gap:.6rem}
+.s-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;transition:all var(--trans);color:rgba(232,245,233,.4)}
+.s-btn:hover{border-color:var(--naranja);color:var(--naranja);transform:translateY(-2px)}
+.s-btn svg{width:15px;height:15px;fill:currentColor}
+.footer-col h4{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{font-size:.85rem;color:rgba(232,245,233,.4);transition:color var(--trans)}
+.footer-col ul a:hover{color:var(--naranja-claro)}
+.footer-bottom{max-width:1240px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.78rem;color:rgba(232,245,233,.28)}
+.footer-bottom a{color:var(--naranja)}
+
+@media(max-width:1024px){
+  .page-body{grid-template-columns:1fr;gap:2rem}
+  .sidebar{position:relative;top:auto}
+  .sidebar{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .sidebar-divider,.btn-reset{display:none}
+  .filter-chips{flex-direction:row;flex-wrap:wrap}
+  .chip{flex:0 0 auto}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}.hamburger{display:flex}
+  .rutas-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .sidebar{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+    Trail<span>Vida</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="rutas.html" class="active">Rutas</a></li>
+    <li><a href="deportes.html">Deportes</a></li>
+    <li><a href="guias.html">Guías</a></li>
+    <li><a href="comunidad.html">Comunidad</a></li>
+    <li><a href="comunidad.html" class="nav-cta">Únete</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Inicio</a><a href="rutas.html">Rutas</a><a href="deportes.html">Deportes</a><a href="guias.html">Guías</a><a href="comunidad.html">Comunidad</a><a href="comunidad.html" style="color:var(--naranja)">Únete</a>
+</div>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="index.html">Inicio</a><span>/</span><span style="color:rgba(232,245,233,.7)">Rutas</span>
+    </nav>
+    <h1>Rutas <em>Outdoor</em><br>en España</h1>
+    <p>Explora nuestra base de datos de rutas verificadas por comunidades, dificultad y tipo de actividad. Con tracks GPX, mapas topográficos y valoraciones reales.</p>
+    <div class="page-hero-meta">
+      <span class="meta-pill"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>3.240 rutas indexadas</span>
+      <span class="meta-pill"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 17l6-10 4 6 3-4 5 8H3z"/></svg>17 Comunidades Autónomas</span>
+      <span class="meta-pill"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>Tracks GPX descargables</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="page-body">
+    <!-- SIDEBAR FILTROS -->
+    <aside class="sidebar" aria-label="Filtros de rutas">
+      <!-- Búsqueda -->
+      <div class="sidebar-section">
+        <h3>Buscar</h3>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="search" id="searchInput" placeholder="Nombre, zona, parque..." aria-label="Buscar rutas">
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+
+      <!-- Dificultad -->
+      <div class="sidebar-section">
+        <h3>Dificultad</h3>
+        <div class="filter-chips" id="filterDificultad" role="group" aria-label="Filtrar por dificultad">
+          <button class="chip active" data-filter="dificultad" data-value="todas">Todas <span class="chip-count">18</span></button>
+          <button class="chip" data-filter="dificultad" data-value="Fácil">Fácil <span class="chip-count">6</span></button>
+          <button class="chip" data-filter="dificultad" data-value="Moderado">Moderado <span class="chip-count">8</span></button>
+          <button class="chip" data-filter="dificultad" data-value="Difícil">Difícil <span class="chip-count">4</span></button>
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+
+      <!-- Tipo -->
+      <div class="sidebar-section">
+        <h3>Tipo de Actividad</h3>
+        <div class="filter-chips" id="filterTipo" role="group" aria-label="Filtrar por tipo">
+          <button class="chip active" data-filter="tipo" data-value="todos">Todos <span class="chip-count">18</span></button>
+          <button class="chip" data-filter="tipo" data-value="Senderismo">Senderismo <span class="chip-count">9</span></button>
+          <button class="chip" data-filter="tipo" data-value="Trail Running">Trail Running <span class="chip-count">5</span></button>
+          <button class="chip" data-filter="tipo" data-value="MTB">Ciclismo MTB <span class="chip-count">3</span></button>
+          <button class="chip" data-filter="tipo" data-value="Escalada">Escalada <span class="chip-count">1</span></button>
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+
+      <!-- Comunidad Autónoma -->
+      <div class="sidebar-section">
+        <h3>Comunidad Autónoma</h3>
+        <div class="filter-chips" id="filterCA" role="group" aria-label="Filtrar por comunidad autónoma">
+          <button class="chip active" data-filter="ca" data-value="todas">Todas <span class="chip-count">18</span></button>
+          <button class="chip" data-filter="ca" data-value="Asturias">Asturias <span class="chip-count">2</span></button>
+          <button class="chip" data-filter="ca" data-value="Andalucía">Andalucía <span class="chip-count">4</span></button>
+          <button class="chip" data-filter="ca" data-value="Cataluña">Cataluña <span class="chip-count">3</span></button>
+          <button class="chip" data-filter="ca" data-value="Aragón">Aragón <span class="chip-count">3</span></button>
+          <button class="chip" data-filter="ca" data-value="País Vasco">País Vasco <span class="chip-count">2</span></button>
+          <button class="chip" data-filter="ca" data-value="Castilla y León">Castilla y León <span class="chip-count">2</span></button>
+          <button class="chip" data-filter="ca" data-value="Galicia">Galicia <span class="chip-count">1</span></button>
+          <button class="chip" data-filter="ca" data-value="Madrid">Madrid <span class="chip-count">1</span></button>
+        </div>
+      </div>
+      <div class="sidebar-divider"></div>
+      <button class="btn-reset" id="btnReset">Limpiar filtros</button>
+    </aside>
+
+    <!-- GRID RUTAS -->
+    <section aria-label="Listado de rutas">
+      <div class="rutas-toolbar">
+        <p class="rutas-count">Mostrando <strong id="countVisible">18</strong> rutas</p>
+        <select class="sort-select" id="sortSelect" aria-label="Ordenar rutas por">
+          <option value="valoracion">Mejor valoración</option>
+          <option value="distancia">Menor distancia</option>
+          <option value="dificultad">Dificultad (menor)</option>
+        </select>
+      </div>
+
+      <div class="rutas-grid" id="rutasGrid">
+        <!-- Las 18 rutas se inyectan por JS -->
+      </div>
+
+      <nav class="pagination" id="pagination" aria-label="Páginas de rutas"></nav>
+    </section>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="font-size:1.2rem">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+        Trail<span>Vida</span>
+      </a>
+      <p>Tu guía de referencia para el deporte outdoor en España.</p>
+      <div class="footer-social">
+        <a href="#" class="s-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" class="s-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Explorar</h4><ul><li><a href="rutas.html">Todas las Rutas</a></li><li><a href="deportes.html">Deportes</a></li><li><a href="guias.html">Guías</a></li><li><a href="comunidad.html">Comunidad</a></li></ul></div>
+    <div class="footer-col"><h4>Regiones</h4><ul><li><a href="rutas.html?ca=Andalucía">Andalucía</a></li><li><a href="rutas.html?ca=Cataluña">Cataluña</a></li><li><a href="rutas.html?ca=Aragón">Aragón</a></li><li><a href="rutas.html?ca=Asturias">Asturias</a></li><li><a href="rutas.html?ca=País+Vasco">País Vasco</a></li></ul></div>
+    <div class="footer-col"><h4>TrailVida</h4><ul><li><a href="index.html">Inicio</a></li><li><a href="#">Sobre nosotros</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Contacto</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 TrailVida. Todos los derechos reservados.</p><p><a href="#">Privacidad</a> · <a href="#">Cookies</a></p></div>
+</footer>
+
+<script>
+// Datos de rutas
+const RUTAS = [
+  {id:1,nombre:"Ruta del Cares — Garganta del Cares",ca:"Asturias",tipo:"Senderismo",dificultad:"Moderado",km:21,desnivel:1200,horas:"6-7 h",valoracion:4.9,reseñas:1847,img:"https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=75",alt:"Desfiladero del Cares en Picos de Europa, Asturias"},
+  {id:2,nombre:"Camino del Rey — Desfiladero de los Gaitanes",ca:"Andalucía",tipo:"Senderismo",dificultad:"Difícil",km:7.7,desnivel:400,horas:"3-4 h",valoracion:4.8,reseñas:2341,img:"https://images.unsplash.com/photo-1527489377706-5bf97e608852?w=600&q=75",alt:"Pasarelas del Camino del Rey en Málaga"},
+  {id:3,nombre:"Sant Joan — Montserrat Circular",ca:"Cataluña",tipo:"Senderismo",dificultad:"Moderado",km:12,desnivel:650,horas:"4-5 h",valoracion:4.7,reseñas:986,img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75",alt:"Montaña de Montserrat con sus agujas de roca en Cataluña"},
+  {id:4,nombre:"GR-11 Travesía Pirenaica Completa",ca:"Aragón",tipo:"Senderismo",dificultad:"Difícil",km:840,desnivel:47000,horas:"40-50 días",valoracion:5.0,reseñas:412,img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75",alt:"Paisaje pirenaico de alta montaña en el GR-11"},
+  {id:5,nombre:"Mulhacén — Cima de la Península",ca:"Andalucía",tipo:"Senderismo",dificultad:"Difícil",km:18,desnivel:1600,horas:"8-10 h",valoracion:4.9,reseñas:1203,img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600&q=75",alt:"Mulhacén nevado en Sierra Nevada, el pico más alto de la Península Ibérica"},
+  {id:6,nombre:"Picos de Europa — Circular Covadonga",ca:"Asturias",tipo:"Senderismo",dificultad:"Moderado",km:15,desnivel:900,horas:"5-6 h",valoracion:4.8,reseñas:754,img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75",alt:"Lagos de Covadonga en Picos de Europa rodeados de montañas"},
+  {id:7,nombre:"Zegama-Aizkorri Skyrace (Ruta)",ca:"País Vasco",tipo:"Trail Running",dificultad:"Difícil",km:42,desnivel:3500,horas:"5-10 h",valoracion:4.9,reseñas:567,img:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=75",alt:"Trail runner corriendo por los montes vascos en la ruta de Zegama-Aizkorri"},
+  {id:8,nombre:"Ordesa y Monte Perdido — Soaso",ca:"Aragón",tipo:"Senderismo",dificultad:"Moderado",km:19,desnivel:700,horas:"6 h",valoracion:4.8,reseñas:1120,img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=75",alt:"Valle de Ordesa con cascada y bosque frondoso en el Pirineo aragonés"},
+  {id:9,nombre:"Aigüestortes — Sant Maurici Trail",ca:"Cataluña",tipo:"Trail Running",dificultad:"Moderado",km:28,desnivel:1800,horas:"4-6 h",valoracion:4.7,reseñas:389,img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=75",alt:"Lago de Sant Maurici en el Parque Nacional de Aigüestortes, Cataluña"},
+  {id:10,nombre:"Senda del Oso — Asturias",ca:"Asturias",tipo:"MTB",dificultad:"Fácil",km:22,desnivel:200,horas:"2-3 h",valoracion:4.5,reseñas:834,img:"https://images.unsplash.com/photo-1544191696-102dbdaeeaa0?w=600&q=75",alt:"Senda del Oso en Asturias, ruta ciclista junto al río Trubia"},
+  {id:11,nombre:"Parque Natural de Cazorla — Río Borosa",ca:"Andalucía",tipo:"Senderismo",dificultad:"Fácil",km:14,desnivel:350,horas:"4-5 h",valoracion:4.6,reseñas:678,img:"https://images.unsplash.com/photo-1448375240586-882707db888b?w=600&q=75",alt:"Sendero junto al Río Borosa en el Parque Natural de Cazorla, Jaén"},
+  {id:12,nombre:"GR-10 Pirineo Catalán — Etapa Núria",ca:"Cataluña",tipo:"Senderismo",dificultad:"Moderado",km:16,desnivel:1100,horas:"6 h",valoracion:4.6,reseñas:321,img:"https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=75",alt:"Alta montaña del Pirineo catalán con vistas al Valle de Núria"},
+  {id:13,nombre:"Monte Aizkorri — Cumbre País Vasco",ca:"País Vasco",tipo:"Trail Running",dificultad:"Moderado",km:14,desnivel:1050,horas:"4-5 h",valoracion:4.7,reseñas:445,img:"https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=75",alt:"Cima del Aizkorri con vistas panorámicas al País Vasco"},
+  {id:14,nombre:"Guadarrama — Siete Picos Circular",ca:"Madrid",tipo:"Senderismo",dificultad:"Moderado",km:17,desnivel:850,horas:"6 h",valoracion:4.5,reseñas:1567,img:"https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&q=75",alt:"Sierra de Guadarrama con los Siete Picos nevados vista desde Madrid"},
+  {id:15,nombre:"Gredos — Circo de Gredos",ca:"Castilla y León",tipo:"Senderismo",dificultad:"Moderado",km:13,desnivel:750,horas:"4-5 h",valoracion:4.8,reseñas:892,img:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600&q=75",alt:"Laguna Grande en el Circo de Gredos, Ávila"},
+  {id:16,nombre:"Descenso del Sella en Kayak",ca:"Asturias",tipo:"MTB",dificultad:"Fácil",km:16,desnivel:120,horas:"3-4 h",valoracion:4.4,reseñas:2100,img:"https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=75",alt:"Participantes en el Descenso del Sella en Asturias"},
+  {id:17,nombre:"Camino de Santiago — Etapa Final O Cebreiro",ca:"Galicia",tipo:"Senderismo",dificultad:"Fácil",km:21,desnivel:580,horas:"6-7 h",valoracion:4.9,reseñas:4230,img:"https://images.unsplash.com/photo-1558898479-33c0057a5d12?w=600&q=75",alt:"Peregrinos caminando por el Camino Francés en Galicia hacia Santiago"},
+  {id:18,nombre:"Riglos — Sector Los Mallos",ca:"Aragón",tipo:"Escalada",dificultad:"Difícil",km:2,desnivel:400,horas:"4-8 h",valoracion:4.9,reseñas:312,img:"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=600&q=75",alt:"Escalador en los Mallos de Riglos, paredes verticales de roca en Aragón"},
+];
+
+const ITEMS_PER_PAGE = 6;
+let currentPage = 1;
+let filtros = { dificultad:'todas', tipo:'todos', ca:'todas', search:'' };
+
+function stars(n){
+  let s='';
+  for(let i=1;i<=5;i++) s += i<=Math.floor(n)?'★':'☆';
+  return s;
+}
+
+function renderGrid(data){
+  const grid = document.getElementById('rutasGrid');
+  document.getElementById('countVisible').textContent = data.length;
+  if(!data.length){
+    grid.innerHTML=`<div class="no-results"><svg viewBox="0 0 24 24" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><h3>Sin resultados</h3><p>Prueba con otros filtros.</p></div>`;
+    document.getElementById('pagination').innerHTML='';
+    return;
+  }
+  const total = Math.ceil(data.length/ITEMS_PER_PAGE);
+  if(currentPage>total) currentPage=1;
+  const slice = data.slice((currentPage-1)*ITEMS_PER_PAGE, currentPage*ITEMS_PER_PAGE);
+  grid.innerHTML = slice.map(r=>`
+    <article class="ruta-card reveal" data-id="${r.id}">
+      <div class="ruta-img-wrap">
+        <img src="${r.img}" alt="${r.alt}" loading="lazy">
+        <span class="ruta-badge badge-${r.dificultad==='Fácil'?'facil':r.dificultad==='Moderado'?'moderado':'dificil'}">${r.dificultad}</span>
+        <button class="ruta-fav" aria-label="Guardar ruta ${r.nombre}" onclick="toggleFav(this,event)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="ruta-body">
+        <p class="ruta-ca">${r.ca} · ${r.tipo}</p>
+        <h3>${r.nombre}</h3>
+        <div class="ruta-meta">
+          <span class="ruta-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>${r.km} km</span>
+          <span class="ruta-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>${r.desnivel>=1000?(r.desnivel/1000).toFixed(1)+'k':r.desnivel} m</span>
+          <span class="ruta-meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${r.horas}</span>
+        </div>
+        <div class="ruta-footer">
+          <div class="ruta-stars" aria-label="Valoración ${r.valoracion} de 5">${stars(r.valoracion)} <span>${r.valoracion} (${r.reseñas.toLocaleString('es-ES')})</span></div>
+          <a href="#" class="btn-ver" onclick="return false">Ver Ruta →</a>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // Reveal observer
+  grid.querySelectorAll('.reveal').forEach((el,i)=>{
+    el.style.transitionDelay = (i%ITEMS_PER_PAGE*0.07)+'s';
+    setTimeout(()=>el.classList.add('visible'),50);
+  });
+  renderPagination(total);
+}
+
+function renderPagination(total){
+  const pag = document.getElementById('pagination');
+  if(total<=1){pag.innerHTML='';return;}
+  let html='';
+  html+=`<button class="page-btn arrow" onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''} aria-label="Página anterior"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>`;
+  for(let i=1;i<=total;i++){
+    html+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})" aria-label="Página ${i}">${i}</button>`;
+  }
+  html+=`<button class="page-btn arrow" onclick="changePage(${currentPage+1})" ${currentPage===total?'disabled':''} aria-label="Página siguiente"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>`;
+  pag.innerHTML=html;
+}
+
+function changePage(n){
+  const filtered = applyFiltros();
+  const total = Math.ceil(filtered.length/ITEMS_PER_PAGE);
+  if(n<1||n>total) return;
+  currentPage=n;
+  renderGrid(filtered);
+  document.querySelector('.rutas-main, section[aria-label]').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function applyFiltros(){
+  return RUTAS.filter(r=>{
+    const matchD = filtros.dificultad==='todas'||r.dificultad===filtros.dificultad;
+    const matchT = filtros.tipo==='todos'||r.tipo===filtros.tipo;
+    const matchC = filtros.ca==='todas'||r.ca===filtros.ca;
+    const matchS = !filtros.search||r.nombre.toLowerCase().includes(filtros.search)||r.ca.toLowerCase().includes(filtros.search);
+    return matchD&&matchT&&matchC&&matchS;
+  });
+}
+
+function updateFiltros(){
+  currentPage=1;
+  renderGrid(applyFiltros());
+}
+
+// Chips click
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click',()=>{
+    const group = chip.dataset.filter;
+    document.querySelectorAll(`[data-filter="${group}"]`).forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    filtros[group] = chip.dataset.value;
+    updateFiltros();
+  });
+});
+
+// Búsqueda
+document.getElementById('searchInput').addEventListener('input',e=>{
+  filtros.search = e.target.value.toLowerCase().trim();
+  updateFiltros();
+});
+
+// Sort
+document.getElementById('sortSelect').addEventListener('change',e=>{
+  const val = e.target.value;
+  RUTAS.sort((a,b)=>{
+    if(val==='valoracion') return b.valoracion-a.valoracion;
+    if(val==='distancia') return a.km-b.km;
+    if(val==='dificultad'){
+      const d={Fácil:1,Moderado:2,Difícil:3};
+      return d[a.dificultad]-d[b.dificultad];
+    }
+  });
+  currentPage=1;
+  renderGrid(applyFiltros());
+});
+
+// Reset
+document.getElementById('btnReset').addEventListener('click',()=>{
+  filtros={dificultad:'todas',tipo:'todos',ca:'todas',search:''};
+  document.getElementById('searchInput').value='';
+  document.querySelectorAll('.chip').forEach(c=>{
+    const val=c.dataset.value;
+    c.classList.toggle('active',val==='todas'||val==='todos');
+  });
+  updateFiltros();
+});
+
+// Favoritos
+function toggleFav(btn,e){
+  e.stopPropagation();
+  btn.classList.toggle('active');
+}
+
+// URL params
+const params = new URLSearchParams(window.location.search);
+if(params.get('ca')){
+  const ca=decodeURIComponent(params.get('ca'));
+  filtros.ca=ca;
+  document.querySelectorAll('[data-filter="ca"]').forEach(c=>{
+    c.classList.toggle('active',c.dataset.value===ca||c.dataset.value==='todas'&&ca==='');
+  });
+}
+
+// Init render
+renderGrid(applyFiltros());
+
+// Navbar scroll
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);
+},{passive:true});
+
+// Cursor
+const dot=document.getElementById('cursorDot');
+document.addEventListener('mousemove',e=>{dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+document.querySelectorAll('a,button,.chip,.ruta-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+// Hamburger
+const hbg=document.getElementById('hamburger'),nm=document.getElementById('navMobile');
+hbg.addEventListener('click',()=>{const o=hbg.classList.toggle('active');nm.classList.toggle('open',o);hbg.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});
+nm.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{hbg.classList.remove('active');nm.classList.remove('open');document.body.style.overflow='';}));
+
+// Reveal observer
+const rObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+// Page fade
+document.body.style.opacity='0';document.body.style.transition='opacity .3s ease';
+window.addEventListener('load',()=>{document.body.style.opacity='1';});
+document.querySelectorAll('a[href$=".html"]').forEach(l=>{l.addEventListener('click',e=>{const h=l.getAttribute('href');if(!h||h.startsWith('#')||h.startsWith('http'))return;e.preventDefault();document.body.style.opacity='0';setTimeout(()=>{window.location.href=h;},280);});});
+</script>
+</body>
+</html>

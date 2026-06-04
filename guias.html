@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guías y Consejos Outdoor — TrailVida</title>
+<meta name="description" content="Guías prácticas de equipamiento, nutrición deportiva, técnica de montaña, seguridad y meteorología para deportes al aire libre en España.">
+<meta property="og:title" content="Guías Outdoor — TrailVida">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --verde:#1B4332;--verde-medio:#2D6A4F;--verde-claro:#52B788;
+  --naranja:#E85D04;--naranja-claro:#F48C06;
+  --oscuro:#0D1117;--oscuro-medio:#161B22;
+  --claro:#F8F9FA;--blanco:#ffffff;
+  --texto:#E8F5E9;--gris:#6B7280;--gris-borde:rgba(255,255,255,0.1);
+  --font-t:'Montserrat',sans-serif;--font-b:'Inter',sans-serif;
+  --trans:300ms cubic-bezier(.4,0,.2,1);--radio:12px;--radio-lg:20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--oscuro);color:var(--texto);line-height:1.6;overflow-x:hidden;cursor:none}
+img{max-width:100%;display:block}a{text-decoration:none;color:inherit}
+.cursor-dot{width:8px;height:8px;background:var(--naranja);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+body.ch .cursor-dot{width:12px;height:12px;background:var(--naranja-claro)}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s ease}
+.navbar.scrolled{background:rgba(13,17,23,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--gris-borde);padding:1rem 2rem}
+.nav-logo{display:flex;align-items:center;gap:.6rem;font-family:var(--font-t);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;color:#fff}
+.nav-logo span{color:var(--naranja)}
+.nav-links{display:flex;align-items:center;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:rgba(232,245,233,.75);position:relative;transition:color var(--trans)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--naranja);transition:width var(--trans)}
+.nav-links a:hover,.nav-links a.active{color:#fff}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-cta{background:var(--naranja);color:#fff!important;padding:.6rem 1.4rem;border-radius:50px;font-weight:600;font-size:.875rem;transition:transform var(--trans),box-shadow var(--trans)}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,93,4,.4)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:24px;height:2px;background:#fff;border-radius:2px;transition:all .3s;display:block}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.nav-mobile{display:none;position:fixed;inset:0;background:rgba(13,17,23,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-family:var(--font-t);font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.02em;text-transform:uppercase;transition:color var(--trans)}
+.nav-mobile a:hover{color:var(--naranja)}
+
+/* HERO */
+.page-hero{padding:9rem 2rem 5rem;background:var(--oscuro-medio);position:relative;overflow:hidden;border-bottom:1px solid var(--gris-borde)}
+.page-hero::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=1600&q=50') center/cover;opacity:.1}
+.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--naranja),transparent)}
+.page-hero-inner{max-width:1240px;margin:0 auto;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(232,245,233,.45);margin-bottom:1rem}
+.breadcrumb a{color:rgba(232,245,233,.45);transition:color var(--trans)}
+.breadcrumb a:hover{color:var(--naranja)}
+.breadcrumb span{color:rgba(232,245,233,.25)}
+.page-hero h1{font-family:var(--font-t);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:1.05;letter-spacing:-.03em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.page-hero h1 em{font-style:normal;color:var(--naranja)}
+.page-hero-left p{color:rgba(232,245,233,.6);font-size:1rem;line-height:1.8;margin-bottom:2rem}
+.hero-search{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.05);border:1px solid rgba(232,93,4,.25);border-radius:50px;padding:.75rem 1.25rem;max-width:440px;transition:border-color var(--trans)}
+.hero-search:focus-within{border-color:rgba(232,93,4,.5)}
+.hero-search svg{width:18px;height:18px;stroke:rgba(232,245,233,.4);fill:none;flex-shrink:0}
+.hero-search input{background:transparent;border:none;outline:none;color:var(--texto);font-family:var(--font-b);font-size:.95rem;width:100%}
+.hero-search input::placeholder{color:rgba(232,245,233,.35)}
+.hero-stats-mini{display:flex;gap:2rem;margin-top:2rem}
+.mini-stat strong{font-family:var(--font-t);font-size:1.5rem;font-weight:800;color:#fff;display:block;line-height:1}
+.mini-stat span{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(232,245,233,.4)}
+.hero-cats{display:flex;flex-direction:column;gap:.75rem}
+.cat-pill{display:flex;align-items:center;gap:.75rem;background:rgba(255,255,255,.04);border:1px solid var(--gris-borde);border-radius:var(--radio);padding:.9rem 1.25rem;cursor:pointer;transition:all var(--trans)}
+.cat-pill:hover,.cat-pill.active{background:rgba(232,93,4,.1);border-color:rgba(232,93,4,.35)}
+.cat-pill-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cat-pill-icon svg{width:18px;height:18px;stroke:#fff;fill:none}
+.cat-pill-info{flex:1}
+.cat-pill-info h4{font-family:var(--font-t);font-size:.85rem;font-weight:700;color:#fff;margin-bottom:.1rem}
+.cat-pill-info span{font-size:.75rem;color:rgba(232,245,233,.4)}
+.cat-pill-arrow{width:16px;height:16px;stroke:rgba(232,245,233,.25);fill:none;transition:stroke var(--trans),transform var(--trans)}
+.cat-pill:hover .cat-pill-arrow{stroke:var(--naranja);transform:translateX(3px)}
+
+/* LAYOUT PRINCIPAL */
+.guias-layout{max-width:1240px;margin:0 auto;padding:3rem 2rem;display:grid;grid-template-columns:1fr 320px;gap:3rem;align-items:start}
+
+/* ARTÍCULO FEATURED */
+.featured-article{border-radius:var(--radio-lg);overflow:hidden;background:var(--oscuro-medio);border:1px solid var(--gris-borde);margin-bottom:2.5rem;cursor:pointer;transition:box-shadow var(--trans),border-color var(--trans)}
+.featured-article:hover{box-shadow:0 20px 50px rgba(0,0,0,.35);border-color:rgba(232,93,4,.2)}
+.featured-img{position:relative;aspect-ratio:21/9;overflow:hidden}
+.featured-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease}
+.featured-article:hover .featured-img img{transform:scale(1.04)}
+.featured-badge{position:absolute;top:1.25rem;left:1.25rem;background:var(--naranja);color:#fff;font-family:var(--font-t);font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:50px;display:flex;align-items:center;gap:.4rem}
+.featured-badge::before{content:'';width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.featured-body{padding:2rem 2.5rem}
+.article-cat{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--naranja);margin-bottom:.6rem}
+.featured-body h2{font-family:var(--font-t);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;color:#fff;line-height:1.25;letter-spacing:-.02em;margin-bottom:1rem}
+.featured-body p{color:rgba(232,245,233,.6);font-size:.97rem;line-height:1.85;margin-bottom:1.5rem}
+.article-meta{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:.35rem;font-size:.78rem;color:rgba(232,245,233,.4)}
+.meta-item svg{width:14px;height:14px;stroke:var(--verde-claro);fill:none}
+.author-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--verde),var(--naranja));display:flex;align-items:center;justify-content:center;font-family:var(--font-t);font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
+
+/* SECCIÓN TÍTULO */
+.section-label{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--naranja);display:block;margin-bottom:.5rem}
+.section-title{font-family:var(--font-t);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;line-height:1.2;letter-spacing:-.02em;color:#fff;margin-bottom:1.75rem}
+
+/* FILTRO CATS */
+.cats-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+.cat-filter-btn{background:rgba(255,255,255,.04);border:1px solid var(--gris-borde);border-radius:50px;padding:.4rem 1rem;font-size:.78rem;font-weight:600;color:rgba(232,245,233,.5);cursor:pointer;transition:all var(--trans)}
+.cat-filter-btn:hover{color:var(--texto)}
+.cat-filter-btn.active{background:rgba(232,93,4,.15);border-color:rgba(232,93,4,.45);color:var(--naranja-claro)}
+
+/* GRID ARTÍCULOS */
+.articles-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.article-card{background:var(--oscuro-medio);border:1px solid var(--gris-borde);border-radius:var(--radio-lg);overflow:hidden;cursor:pointer;transition:transform var(--trans),box-shadow var(--trans),border-color var(--trans);display:flex;flex-direction:column}
+.article-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.3);border-color:rgba(232,93,4,.18)}
+.article-card-img{aspect-ratio:16/9;overflow:hidden}
+.article-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.article-card:hover .article-card-img img{transform:scale(1.07)}
+.article-card-body{padding:1.25rem;flex:1;display:flex;flex-direction:column}
+.article-card-body .article-cat{margin-bottom:.5rem}
+.article-card-body h3{font-family:var(--font-t);font-weight:700;font-size:.97rem;color:#fff;line-height:1.4;margin-bottom:.75rem;flex:1}
+.article-card-body p{color:rgba(232,245,233,.5);font-size:.84rem;line-height:1.65;margin-bottom:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.article-footer{display:flex;align-items:center;justify-content:space-between;padding-top:.75rem;border-top:1px solid var(--gris-borde)}
+.read-time{font-size:.75rem;color:rgba(232,245,233,.35);display:flex;align-items:center;gap:.3rem}
+.read-time svg{width:12px;height:12px;stroke:rgba(232,245,233,.35);fill:none}
+.read-more{font-size:.78rem;font-weight:600;color:var(--naranja);transition:gap var(--trans);display:flex;align-items:center;gap:.3rem}
+.read-more:hover{gap:.6rem}
+.no-articles{grid-column:1/-1;text-align:center;padding:3rem;color:rgba(232,245,233,.3);font-size:.9rem}
+
+/* SIDEBAR */
+.sidebar{display:flex;flex-direction:column;gap:1.5rem}
+.sidebar-widget{background:var(--oscuro-medio);border:1px solid var(--gris-borde);border-radius:var(--radio-lg);padding:1.5rem}
+.widget-title{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(232,245,233,.4);margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--gris-borde)}
+
+/* Popular articles */
+.popular-list{display:flex;flex-direction:column;gap:.9rem}
+.popular-item{display:flex;gap:.9rem;align-items:flex-start;cursor:pointer;transition:opacity var(--trans)}
+.popular-item:hover{opacity:.8}
+.popular-num{font-family:var(--font-t);font-size:1.4rem;font-weight:900;color:rgba(232,93,4,.25);line-height:1;flex-shrink:0;width:28px}
+.popular-info h4{font-size:.85rem;font-weight:600;color:var(--texto);line-height:1.4;margin-bottom:.25rem}
+.popular-info span{font-size:.72rem;color:rgba(232,245,233,.35)}
+
+/* Tags cloud */
+.tags-cloud{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag-item{background:rgba(255,255,255,.04);border:1px solid var(--gris-borde);border-radius:50px;padding:.3rem .75rem;font-size:.75rem;color:rgba(232,245,233,.5);cursor:pointer;transition:all var(--trans)}
+.tag-item:hover{border-color:rgba(232,93,4,.35);color:var(--naranja-claro);background:rgba(232,93,4,.08)}
+
+/* Newsletter mini */
+.newsletter-mini{background:linear-gradient(135deg,var(--verde) 0%,var(--verde-medio) 100%);border-radius:var(--radio-lg);padding:1.75rem;border:none}
+.newsletter-mini h3{font-family:var(--font-t);font-size:1rem;font-weight:800;color:#fff;margin-bottom:.5rem}
+.newsletter-mini p{font-size:.82rem;color:rgba(232,245,233,.7);margin-bottom:1.25rem;line-height:1.6}
+.newsletter-mini-form{display:flex;flex-direction:column;gap:.5rem}
+.newsletter-mini-form input{background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:.65rem 1rem;color:#fff;font-family:var(--font-b);font-size:.85rem;outline:none;transition:border-color var(--trans)}
+.newsletter-mini-form input::placeholder{color:rgba(232,245,233,.4)}
+.newsletter-mini-form input:focus{border-color:rgba(255,255,255,.4)}
+.newsletter-mini-form button{background:var(--naranja);color:#fff;border:none;border-radius:8px;padding:.7rem;font-family:var(--font-t);font-weight:700;font-size:.82rem;cursor:pointer;transition:background var(--trans)}
+.newsletter-mini-form button:hover{background:var(--naranja-claro)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.1s}.reveal-d2{transition-delay:.2s}.reveal-d3{transition-delay:.3s}.reveal-d4{transition-delay:.4s}
+
+/* FOOTER */
+footer{background:#080C10;border-top:1px solid var(--gris-borde);padding:3rem 2rem 1.5rem}
+.footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand .nav-logo{margin-bottom:.75rem}
+.footer-brand p{color:rgba(232,245,233,.4);font-size:.85rem;line-height:1.7;max-width:260px;margin-bottom:1rem}
+.footer-social{display:flex;gap:.6rem}
+.s-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:center;transition:all var(--trans);color:rgba(232,245,233,.4)}
+.s-btn:hover{border-color:var(--naranja);color:var(--naranja);transform:translateY(-2px)}
+.s-btn svg{width:15px;height:15px;fill:currentColor}
+.footer-col h4{font-family:var(--font-t);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul a{font-size:.85rem;color:rgba(232,245,233,.4);transition:color var(--trans)}
+.footer-col ul a:hover{color:var(--naranja-claro)}
+.footer-bottom{max-width:1240px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--gris-borde);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.footer-bottom p{font-size:.78rem;color:rgba(232,245,233,.28)}
+.footer-bottom a{color:var(--naranja)}
+
+@media(max-width:1024px){
+  .page-hero-inner{grid-template-columns:1fr}
+  .hero-cats{display:none}
+  .guias-layout{grid-template-columns:1fr}
+  .sidebar{display:grid;grid-template-columns:1fr 1fr}
+  .newsletter-mini{grid-column:span 2}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}.hamburger{display:flex}
+  .articles-grid{grid-template-columns:1fr}
+  .sidebar{grid-template-columns:1fr}
+  .newsletter-mini{grid-column:span 1}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+    Trail<span>Vida</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="rutas.html">Rutas</a></li>
+    <li><a href="deportes.html">Deportes</a></li>
+    <li><a href="guias.html" class="active">Guías</a></li>
+    <li><a href="comunidad.html">Comunidad</a></li>
+    <li><a href="comunidad.html" class="nav-cta">Únete</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html">Inicio</a><a href="rutas.html">Rutas</a><a href="deportes.html">Deportes</a><a href="guias.html">Guías</a><a href="comunidad.html">Comunidad</a><a href="comunidad.html" style="color:var(--naranja)">Únete</a>
+</div>
+
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-left">
+      <nav class="breadcrumb"><a href="index.html">Inicio</a><span>/</span><span style="color:rgba(232,245,233,.7)">Guías</span></nav>
+      <h1>Aprende.<br><em>Mejora.</em><br>Disfruta.</h1>
+      <p>Consejos prácticos de expertos en montaña: desde elegir tu primera mochila hasta sobrevivir una tormenta en cima. Todo lo que necesitas saber para salir con seguridad y disfrutar al máximo.</p>
+      <div class="hero-search" role="search">
+        <svg viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="heroSearch" placeholder="Busca una guía: mochila, nutrición, GPS..." aria-label="Buscar guías">
+      </div>
+      <div class="hero-stats-mini">
+        <div class="mini-stat"><strong>48</strong><span>Artículos</span></div>
+        <div class="mini-stat"><strong>5</strong><span>Categorías</span></div>
+        <div class="mini-stat"><strong>280k</strong><span>Lecturas/mes</span></div>
+      </div>
+    </div>
+    <div class="hero-cats" aria-label="Categorías de guías">
+      <div class="cat-pill active" data-cat="Equipamiento">
+        <div class="cat-pill-icon" style="background:linear-gradient(135deg,#1B4332,#2D6A4F)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/></svg>
+        </div>
+        <div class="cat-pill-info"><h4>Equipamiento</h4><span>14 artículos</span></div>
+        <svg class="cat-pill-arrow" viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="cat-pill" data-cat="Nutrición">
+        <div class="cat-pill-icon" style="background:linear-gradient(135deg,#E85D04,#F48C06)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 2a7 7 0 107 7H5a7 7 0 017-7z"/><path d="M12 9v13M9 18h6"/></svg>
+        </div>
+        <div class="cat-pill-info"><h4>Nutrición</h4><span>10 artículos</span></div>
+        <svg class="cat-pill-arrow" viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="cat-pill" data-cat="Técnica">
+        <div class="cat-pill-icon" style="background:linear-gradient(135deg,#52B788,#2D6A4F)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="cat-pill-info"><h4>Técnica</h4><span>9 artículos</span></div>
+        <svg class="cat-pill-arrow" viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="cat-pill" data-cat="Seguridad">
+        <div class="cat-pill-icon" style="background:linear-gradient(135deg,#dc2626,#991b1b)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="cat-pill-info"><h4>Seguridad</h4><span>8 artículos</span></div>
+        <svg class="cat-pill-arrow" viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+      <div class="cat-pill" data-cat="Meteorología">
+        <div class="cat-pill-icon" style="background:linear-gradient(135deg,#1d4ed8,#1e40af)">
+          <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+        </div>
+        <div class="cat-pill-info"><h4>Meteorología</h4><span>7 artículos</span></div>
+        <svg class="cat-pill-arrow" viewBox="0 0 24 24" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="guias-layout">
+    <!-- COLUMNA PRINCIPAL -->
+    <div>
+      <!-- Artículo Featured -->
+      <article class="featured-article reveal" aria-label="Artículo destacado">
+        <div class="featured-img">
+          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=1200&q=80" alt="Mochilero con equipamiento completo de alta montaña preparándose en el refugio para atacar la cima" loading="lazy">
+          <span class="featured-badge">Destacado</span>
+        </div>
+        <div class="featured-body">
+          <span class="article-cat">Equipamiento</span>
+          <h2>La Mochila Perfecta para Alta Montaña: Guía Completa 2025</h2>
+          <p>Todo lo que necesitas saber para elegir tu mochila de montaña este año. Analizamos los sistemas de suspensión, el volumen ideal según el tipo de salida (día, fin de semana, travesía), los materiales más ligeros del mercado y hacemos un ranking de las 8 mejores opciones entre 60 y 250 euros. Incluye checklist de contenido para salidas de 1, 2 y 5 días.</p>
+          <div class="article-meta">
+            <div class="author-avatar" aria-hidden="true">MR</div>
+            <span class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12 min de lectura</span>
+            <span class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Actualizado mayo 2025</span>
+            <span class="meta-item"><svg viewBox="0 0 24 24" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>18.4k lecturas</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Filtros de categoría -->
+      <div class="cats-filter" id="catsFilter" role="group" aria-label="Filtrar artículos por categoría">
+        <button class="cat-filter-btn active" data-cat="todas">Todos</button>
+        <button class="cat-filter-btn" data-cat="Equipamiento">Equipamiento</button>
+        <button class="cat-filter-btn" data-cat="Nutrición">Nutrición</button>
+        <button class="cat-filter-btn" data-cat="Técnica">Técnica</button>
+        <button class="cat-filter-btn" data-cat="Seguridad">Seguridad</button>
+        <button class="cat-filter-btn" data-cat="Meteorología">Meteorología</button>
+      </div>
+
+      <div class="articles-grid" id="articlesGrid"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Sidebar de guías">
+      <!-- Popular -->
+      <div class="sidebar-widget reveal">
+        <h3 class="widget-title">Más leídos este mes</h3>
+        <div class="popular-list">
+          <div class="popular-item">
+            <span class="popular-num">01</span>
+            <div class="popular-info">
+              <h4>Cómo preparar un kit de emergencia para montaña</h4>
+              <span>32.1k lecturas · Seguridad</span>
+            </div>
+          </div>
+          <div class="popular-item">
+            <span class="popular-num">02</span>
+            <div class="popular-info">
+              <h4>Las mejores zapatillas de trail de 2025</h4>
+              <span>28.7k lecturas · Equipamiento</span>
+            </div>
+          </div>
+          <div class="popular-item">
+            <span class="popular-num">03</span>
+            <div class="popular-info">
+              <h4>Nutrición en ultra: qué comer cada hora</h4>
+              <span>21.3k lecturas · Nutrición</span>
+            </div>
+          </div>
+          <div class="popular-item">
+            <span class="popular-num">04</span>
+            <div class="popular-info">
+              <h4>Leer el cielo: cómo interpretar las nubes</h4>
+              <span>19.8k lecturas · Meteorología</span>
+            </div>
+          </div>
+          <div class="popular-item">
+            <span class="popular-num">05</span>
+            <div class="popular-info">
+              <h4>Técnica de descenso: cómo no destrozarte las rodillas</h4>
+              <span>16.2k lecturas · Técnica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Newsletter mini -->
+      <div class="newsletter-mini reveal reveal-d1">
+        <h3>Guías cada semana</h3>
+        <p>Recibe los mejores artículos directamente en tu correo. Sin spam, solo contenido útil.</p>
+        <form class="newsletter-mini-form" onsubmit="handleNL(event)">
+          <input type="email" placeholder="tu@correo.es" required>
+          <button type="submit">Suscribirme gratis</button>
+        </form>
+      </div>
+
+      <!-- Tags -->
+      <div class="sidebar-widget reveal reveal-d2">
+        <h3 class="widget-title">Temas populares</h3>
+        <div class="tags-cloud">
+          <span class="tag-item">Alta montaña</span>
+          <span class="tag-item">GPX</span>
+          <span class="tag-item">Trail running</span>
+          <span class="tag-item">Hidratación</span>
+          <span class="tag-item">Gore-Tex</span>
+          <span class="tag-item">Pirineo</span>
+          <span class="tag-item">Primeros auxilios</span>
+          <span class="tag-item">Fotografía</span>
+          <span class="tag-item">Trekking</span>
+          <span class="tag-item">Nieve</span>
+          <span class="tag-item">Crampones</span>
+          <span class="tag-item">Nutrición</span>
+          <span class="tag-item">Bivac</span>
+          <span class="tag-item">Wikiloc</span>
+        </div>
+      </div>
+
+      <!-- Comunidades -->
+      <div class="sidebar-widget reveal reveal-d3">
+        <h3 class="widget-title">Guías por comunidad</h3>
+        <div style="display:flex;flex-direction:column;gap:.5rem">
+          <a href="rutas.html?ca=Andalucía" style="font-size:.85rem;color:rgba(232,245,233,.5);transition:color var(--trans);display:flex;justify-content:space-between">Andalucía <span style="color:rgba(232,93,4,.6)">→</span></a>
+          <a href="rutas.html?ca=Aragón" style="font-size:.85rem;color:rgba(232,245,233,.5);transition:color var(--trans);display:flex;justify-content:space-between">Aragón <span style="color:rgba(232,93,4,.6)">→</span></a>
+          <a href="rutas.html?ca=Asturias" style="font-size:.85rem;color:rgba(232,245,233,.5);transition:color var(--trans);display:flex;justify-content:space-between">Asturias <span style="color:rgba(232,93,4,.6)">→</span></a>
+          <a href="rutas.html?ca=Cataluña" style="font-size:.85rem;color:rgba(232,245,233,.5);transition:color var(--trans);display:flex;justify-content:space-between">Cataluña <span style="color:rgba(232,93,4,.6)">→</span></a>
+          <a href="rutas.html?ca=País+Vasco" style="font-size:.85rem;color:rgba(232,245,233,.5);transition:color var(--trans);display:flex;justify-content:space-between">País Vasco <span style="color:rgba(232,93,4,.6)">→</span></a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo" style="font-size:1.2rem;margin-bottom:.75rem">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M2 26 L10 12 L15 18 L20 8 L30 26 Z" fill="#1B4332" stroke="#52B788" stroke-width="1.5" stroke-linejoin="round"/><path d="M18 8 L21 12 L23 8 L20 6 Z" fill="#E85D04"/></svg>
+        Trail<span>Vida</span>
+      </a>
+      <p>Tu guía de referencia para el deporte outdoor en España.</p>
+      <div class="footer-social">
+        <a href="#" class="s-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="#" class="s-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Categorías</h4><ul><li><a href="#">Equipamiento</a></li><li><a href="#">Nutrición</a></li><li><a href="#">Técnica</a></li><li><a href="#">Seguridad</a></li><li><a href="#">Meteorología</a></li></ul></div>
+    <div class="footer-col"><h4>Explorar</h4><ul><li><a href="rutas.html">Rutas</a></li><li><a href="deportes.html">Deportes</a></li><li><a href="comunidad.html">Comunidad</a></li><li><a href="index.html">Inicio</a></li></ul></div>
+    <div class="footer-col"><h4>TrailVida</h4><ul><li><a href="#">Sobre nosotros</a></li><li><a href="#">Colabora</a></li><li><a href="#">Privacidad</a></li><li><a href="#">Contacto</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>© 2025 TrailVida. Todos los derechos reservados.</p><p><a href="#">Privacidad</a> · <a href="#">Cookies</a></p></div>
+</footer>
+
+<script>
+const ARTICLES = [
+  {id:1,cat:"Equipamiento",titulo:"Mejores zapatillas de trail running 2025: análisis completo",desc:"Comparamos las 12 zapatillas más vendidas del año: Hoka Speedgoat, Salomon Sense Ride, La Sportiva Mutant y más. Peso, agarre y durabilidad al detalle.",img:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=75",alt:"Zapatillas de trail running sobre roca húmeda en montaña",tiempo:9,vistas:"28.7k"},
+  {id:2,cat:"Nutrición",titulo:"Qué comer antes, durante y después de una ruta de montaña",desc:"La nutrición es el 30% del rendimiento. Guía práctica con ejemplos de menús reales y cantidades exactas para rutas de 3, 6 y 10+ horas.",img:"https://images.unsplash.com/photo-1542401886-65d6c61db217?w=600&q=75",alt:"Barritas energéticas y frutos secos para senderismo en montaña",tiempo:8,vistas:"21.5k"},
+  {id:3,cat:"Seguridad",titulo:"Orientación sin GPS: aprende a leer un mapa topográfico",desc:"El GPS falla. Las pilas se agotan. Saber orientarte con mapa y brújula puede salvarte la vida. Guía práctica con ejercicios reales.",img:"https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&q=75",alt:"Mapa topográfico y brújula sobre roca en ruta de montaña",tiempo:10,vistas:"19.2k"},
+  {id:4,cat:"Técnica",titulo:"Técnica de bajada: cómo proteger rodillas y ser más rápido",desc:"El descenso es donde se gana y donde más lesiones ocurren. Aprende la postura correcta, el apoyo de pie y el uso de bastones para bajar sin dolor.",img:"https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=75",alt:"Senderista bajando por sendero empinado con técnica correcta",tiempo:7,vistas:"16.2k"},
+  {id:5,cat:"Meteorología",titulo:"Leer el cielo: interpreta las nubes antes de salir al monte",desc:"Cumulonimbos, altoestratos, cirros... Aprender a identificar tipos de nubes puede darte hasta 3 horas de ventaja antes de que llegue una tormenta.",img:"https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=600&q=75",alt:"Nubes cumulonimbos formándose sobre pico de montaña al atardecer",tiempo:11,vistas:"19.8k"},
+  {id:6,cat:"Equipamiento",titulo:"Kit de primeros auxilios para montaña: qué no puede faltar",desc:"Desde una tirita hasta cómo tratar una luxación de tobillo in situ. Lo que debes llevar siempre y cómo usarlo cuando más importa.",img:"https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=600&q=75",alt:"Botiquín de emergencia con material de primeros auxilios para montaña",tiempo:8,vistas:"32.1k"},
+  {id:7,cat:"Nutrición",titulo:"Suplementación en trail running: lo que funciona (y lo que no)",desc:"Cafeína, sales, geles de carbohidratos, proteínas... Separamos la evidencia científica del márketing. Solo lo que tiene estudios detrás.",img:"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=600&q=75",alt:"Runner tomando gel energético durante una carrera de trail en montaña",tiempo:12,vistas:"14.6k"},
+  {id:8,cat:"Técnica",titulo:"Cómo entrenar para tu primera travesía de varios días",desc:"Plan de entrenamiento de 12 semanas para preparar una travesía con mochila pesada. Volumen, fuerza, resistencia y adaptación al material.",img:"https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75",alt:"Mochilero caminando al amanecer por sendero de alta montaña",tiempo:14,vistas:"11.3k"},
+  {id:9,cat:"Seguridad",titulo:"Qué hacer si te sorprende una tormenta en alta montaña",desc:"Protocolo paso a paso: cuándo bajar, dónde refugiarse, cómo actuar con rayo cerca. Lo que te enseñan en los cursos de montañismo.",img:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=600&q=75",alt:"Tormenta eléctrica sobre cordillera montañosa vista desde refugio",tiempo:6,vistas:"24.7k"},
+  {id:10,cat:"Meteorología",titulo:"Apps de meteorología para montaña: comparativa real",desc:"Meteo60, Windy, AEMET, Meteoblue... Cuál es más fiable en alta montaña, cuándo usarlas y cómo interpretar los modelos de previsión.",img:"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75",alt:"Smartphone con aplicación meteorológica consultado en montaña",tiempo:7,vistas:"17.4k"},
+  {id:11,cat:"Equipamiento",titulo:"Ropa técnica de montaña: sistema de capas explicado",desc:"Primera, segunda y tercera capa. Qué materiales elegir para cada estación, cómo combinarlas y cuándo añadir o quitar prendas durante la marcha.",img:"https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=75",alt:"Montañero con sistema de capas técnicas preparándose en refugio de montaña",tiempo:9,vistas:"13.8k"},
+  {id:12,cat:"Técnica",titulo:"Fotografía de montaña: capta la magia del paisaje natural",desc:"Ajustes, ángulos y luz. Cómo sacar fotos impresionantes con el móvil o una cámara mirrorless en condiciones de alta montaña.",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75",alt:"Fotógrafo capturando paisaje montañoso al amanecer con cámara profesional",tiempo:8,vistas:"9.1k"},
+];
+
+let currentCat = 'todas';
+let searchTerm = '';
+
+function renderArticles(){
+  const grid = document.getElementById('articlesGrid');
+  let filtered = ARTICLES.filter(a => {
+    const matchCat = currentCat === 'todas' || a.cat === currentCat;
+    const matchSearch = !searchTerm || a.titulo.toLowerCase().includes(searchTerm) || a.cat.toLowerCase().includes(searchTerm) || a.desc.toLowerCase().includes(searchTerm);
+    return matchCat && matchSearch;
+  });
+
+  if(!filtered.length){
+    grid.innerHTML = `<div class="no-articles">No se encontraron artículos con esos filtros.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((a,i) => `
+    <article class="article-card reveal" style="transition-delay:${(i%2)*0.1}s">
+      <div class="article-card-img">
+        <img src="${a.img}" alt="${a.alt}" loading="lazy">
+      </div>
+      <div class="article-card-body">
+        <span class="article-cat">${a.cat}</span>
+        <h3>${a.titulo}</h3>
+        <p>${a.desc}</p>
+        <div class="article-footer">
+          <span class="read-time">
+            <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            ${a.tiempo} min
+          </span>
+          <span class="read-more">Leer más <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // trigger reveal
+  setTimeout(() => {
+    grid.querySelectorAll('.reveal').forEach(el => {
+      revealObs.observe(el);
+    });
+  }, 50);
+}
+
+// Cat filters
+document.querySelectorAll('.cat-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderArticles();
+  });
+});
+
+// Hero cat pills
+document.querySelectorAll('.cat-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    currentCat = pill.dataset.cat;
+    // sync filter buttons
+    document.querySelectorAll('.cat-filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === currentCat);
+    });
+    renderArticles();
+    document.querySelector('.guias-layout').scrollIntoView({behavior:'smooth'});
+  });
+});
+
+// Search
+document.getElementById('heroSearch').addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase().trim();
+  currentCat = 'todas';
+  document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.toggle('active', b.dataset.cat === 'todas'));
+  renderArticles();
+});
+
+// Newsletter
+function handleNL(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  btn.textContent = '¡Apuntado! 🎉';
+  btn.style.background = '#2D6A4F';
+  setTimeout(() => { btn.textContent = 'Suscribirme gratis'; btn.style.background = ''; }, 3000);
+}
+
+// Reveal observer
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); }});
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Init
+renderArticles();
+
+// Navbar
+window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60); }, {passive:true});
+
+// Cursor
+const dot = document.getElementById('cursorDot');
+document.addEventListener('mousemove', e => { dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px'; });
+document.querySelectorAll('a,button,.article-card,.popular-item,.tag-item,.cat-pill,.cat-filter-btn').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
+});
+
+// Hamburger
+const hbg = document.getElementById('hamburger'), nm = document.getElementById('navMobile');
+hbg.addEventListener('click', () => { const o = hbg.classList.toggle('active'); nm.classList.toggle('open', o); hbg.setAttribute('aria-expanded', o); document.body.style.overflow = o ? 'hidden' : ''; });
+nm.querySelectorAll('a').forEach(l => l.addEventListener('click', () => { hbg.classList.remove('active'); nm.classList.remove('open'); document.body.style.overflow = ''; }));
+
+// Page fade
+document.body.style.opacity = '0'; document.body.style.transition = 'opacity .3s ease';
+window.addEventListener('load', () => { document.body.style.opacity = '1'; });
+document.querySelectorAll('a[href$=".html"]').forEach(l => { l.addEventListener('click', e => { const h = l.getAttribute('href'); if(!h || h.startsWith('#') || h.startsWith('http')) return; e.preventDefault(); document.body.style.opacity = '0'; setTimeout(() => { window.location.href = h; }, 280); }); });
+</script>
+</body>
+</html>
